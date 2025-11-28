@@ -19,7 +19,7 @@ class ConfigurationManager:
             cls._instance = super(ConfigurationManager, cls).__new__(cls)
         return cls._instance
 
-    def __init__(self, config_file: str = "../.cfg/config.json"):
+    def __init__(self, config_file: str = "../../.cfg/config.json"):
 
         if hasattr(self, "_initialized") and self._initialized:
             return

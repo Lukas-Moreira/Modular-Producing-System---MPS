@@ -1,0 +1,195 @@
+"""Edge detection helper for Modbus digital inputs.
+
+    Fornece uma pequena classe `EdgeMonitor` que pode:
+    - Aceitar um dicionário de mapeamento (com `start_address` e `count`) ou uma lista explícita de endereços.
+    - Manter o estado anterior para cada endereço e detetar bordas ascendentes/descendentes.
+    - Chamar callbacks registados quando uma borda é detetada.
+    - Processar instantâneos (um dicionário endereço->bool) para que possa ser integrado com qualquer loop de leitura Modbus.
+
+    Exemplo de utilização:
+
+        from src.modules.edge_handler import EdgeMonitor
+
+        # exemplo de mapeamento (proveniente de config.cfg.get(‘modbus_mapping.digital_inputs’))
+        mapping = {“start_address”: 0, “count”: 8}
+
+        # assinatura de retorno de chamada: fn(endereço: int, borda: str, antigo: bool, novo: bool)
+        def on_edge(addr, edge, old, new):
+            print(f“Borda em {addr}: {edge} ({old} -> {new})”)
+
+        monitor = EdgeMonitor(mapping=mapping)
+        monitor.register_callback (on_edge)
+
+        # No seu loop de leitura, produza um dicionário de instantâneos: {address: bool}
+        snapshot = {0: False, 1: True, 2: False}
+        monitor.process_snapshot(snapshot)
+
+    Para o modo de sondagem, crie com `read_snapshot` chamável e chame `start()` / `stop()`.
+"""
+
+from __future__ import annotations
+
+import threading
+import time
+from typing import Callable, Dict, Iterable, List, Optional
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+def mapping_to_addresses(mapping: Dict) -> List[int]:
+    """Converte um mapping com `start_address` e `count` em lista de endereços.
+
+    Se a chave `addresses` estiver presente e for uma lista, retorna-a diretamente.
+    """
+    if not mapping:
+        return []
+    if isinstance(mapping.get("addresses"), list):
+        return list(mapping["addresses"])
+    start = int(mapping.get("start_address", 0))
+    count = int(mapping.get("count", 0))
+    return [start + i for i in range(count)]
+
+
+class EdgeMonitor:
+    """ Classe para detecção de bordas (rising/falling) em endereços digitais.
+
+    Este componente permite monitorar mudanças de estado em um conjunto de
+    endereços binários (ex.: coils ou discrete inputs Modbus), identificando
+    transições de 0→1 (rising) e 1→0 (falling).
+
+    1. Defina os endereços a serem monitorados
+    - usando `mapping=`: dicionário com `{start_address, count}`
+        (ex.: mapping={"start_address": 0, "count": 8})
+    - ou usando `addresses=`: lista/iterável de endereços individuais
+        (ex.: addresses=[1, 5, 7, 12])
+
+    2. Escolha como fornecer as leituras:
+    A) Polling automático
+        - Passe um `read_snapshot` (callable que retorna um dict {address: bool})
+        - Chame `start()` para iniciar a thread de monitoramento.
+        - A cada leitura, bordas detectadas serão notificadas via callbacks.
+
+    B) Processamento manual
+        - Quando já tiver uma leitura externa (ex.: resposta Modbus), chame diretamente:
+
+            process_snapshot(snapshot)
+
+            onde `snapshot` é um dict {address: bool}.
+
+    3. A classe gera eventos de borda:
+    - on_rising(address)
+    - on_falling(address)
+    """
+
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super(EdgeMonitor, cls).__new__(cls)
+        return cls._instance
+
+    def __init__(
+        self,
+        mapping: Optional[Dict] = None,
+        addresses: Optional[Iterable[int]] = None,
+        read_snapshot: Optional[Callable[[], Dict[int, bool]]] = None,
+        poll_interval: float = 0.1,
+    ) -> None:
+        
+        if hasattr(self, "_initialized") and self._initialized:
+            return
+        
+        self._initialized = True
+
+        if mapping is not None:
+            self.addresses = mapping_to_addresses(mapping)
+        elif addresses is not None:
+            self.addresses = list(addresses)
+        else:
+            self.addresses = []
+
+        # estado anterior (inicia como False para todos)
+        self._prev: Dict[int, bool] = {addr: False for addr in self.addresses}
+
+        # callbacks: fn(address, edge, old, new)
+        self._callbacks: List[Callable[[int, str, bool, bool], None]] = []
+
+        # polling
+        self.read_snapshot = read_snapshot
+        self.poll_interval = float(poll_interval)
+        self._thread: Optional[threading.Thread] = None
+        self._running = threading.Event()
+
+    def register_callback(self, cb: Callable[[int, str, bool, bool], None]) -> None:
+        """Registra um callback que será chamado em toda borda detectada."""
+        self._callbacks.append(cb)
+
+    def unregister_callback(self, cb: Callable[[int, str, bool, bool], None]) -> None:
+        try:
+            self._callbacks.remove(cb)
+        except ValueError:
+            pass
+
+    def _emit(self, addr: int, edge: str, old: bool, new: bool) -> None:
+        for cb in list(self._callbacks):
+            try:
+                cb(addr, edge, old, new)
+            except Exception:
+                logger.exception("Erro no callback de borda para %s", addr)
+
+    def process_snapshot(self, snapshot: Dict[int, bool]) -> List[tuple]:
+        """Processa um snapshot `address -> bool`, detecta mudanças e emite eventos.
+
+        Retorna uma lista de tuplas (address, edge, old, new) detectadas.
+        """
+        events = []
+        # Garantir que endereços novos sejam inicializados
+        for addr in snapshot.keys():
+            if addr not in self._prev:
+                self._prev[addr] = False
+                if addr not in self.addresses:
+                    self.addresses.append(addr)
+
+        for addr in self.addresses:
+            old = self._prev.get(addr, False)
+            new = bool(snapshot.get(addr, False))
+            if new != old:
+                edge = "rising" if new else "falling"
+                self._prev[addr] = new
+                events.append((addr, edge, old, new))
+                self._emit(addr, edge, old, new)
+
+        return events
+
+    def _poll_loop(self) -> None:
+        while self._running.is_set():
+            try:
+                if callable(self.read_snapshot):
+                    snapshot = self.read_snapshot() or {}
+                else:
+                    snapshot = {}
+                self.process_snapshot(snapshot)
+            except Exception:
+                logger.exception("Erro no loop de polling do EdgeMonitor")
+            time.sleep(self.poll_interval)
+
+    def start(self, background: bool = True) -> None:
+        """Inicia o monitoramento em loop. Se `read_snapshot` não foi fornecido,
+        o loop apenas dorme e não faz leituras.
+        """
+        if self._thread and self._thread.is_alive():
+            return
+        self._running.set()
+        self._thread = threading.Thread(target=self._poll_loop, daemon=True)
+        self._thread.start()
+
+    def stop(self) -> None:
+        """Para o loop de polling (se estiver rodando)."""
+        self._running.clear()
+        if self._thread:
+            self._thread.join(timeout=1.0)
+            self._thread = None
+
+
+__all__ = ["EdgeMonitor", "mapping_to_addresses"]

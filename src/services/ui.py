@@ -1,6 +1,6 @@
 # ui.py
 from typing import List, Dict
-from scanner import FactoryIOScanner
+from src.modules.scanner import FactoryIOScanner
 
 class UserInterface:
     """Interface do usuário para o scanner Factory I/O"""

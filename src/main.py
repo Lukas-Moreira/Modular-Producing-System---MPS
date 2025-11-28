@@ -1,15 +1,8 @@
-# main.py
-"""
-Factory I/O Scanner - Aplicação principal
-Autor: Assistente AI
-Data: 2025
-"""
-
 import logging
-from config import ConfigurationManager
-from scanner import MPScanner
-from ui import UserInterface, get_valid_choice
-from utils import setup_logging
+from src.modules.config import ConfigurationManager
+from src.modules.scanner import MPScanner
+from src.services.ui import UserInterface, get_valid_choice
+from src.services.utils import setup_logging
 
 def show_current_config(config_manager: ConfigurationManager):
     """Exibe configuração atual"""
@@ -19,7 +12,7 @@ def show_current_config(config_manager: ConfigurationManager):
     print(f"⏱️ Timeout: {config_manager.get('connection.timeout')}s")
     print(f"📊 Fator de escala: {config_manager.get('display.scale_factor')}")
     print(f"📝 Arquivo descrições: {config_manager.get('files.descriptions_file')}")
-    print(f"🗂️ Arquivo configuração: config.json")
+    print(f"🗂️ Arquivo configuração: {config_manager.config_file}")
 
 def main():
     """Função principal da aplicação"""

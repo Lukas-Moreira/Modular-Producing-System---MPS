@@ -3,6 +3,8 @@ import json
 import logging
 from pathlib import Path
 from typing import Dict, List, Optional
+
+from edge_monitor import EdgeMonitor
 from config import ConfigurationManager
 from modbus_client import ModbusClientWrapper
 
@@ -24,9 +26,14 @@ class MPScanner:
         # Estruturas de dados
         self.io_data: List[Dict] = []
         self.custom_descriptions: Dict[str, str] = {}
-        
+
         # Carrega descrições personalizadas
         self._load_custom_descriptions()
+
+        # Inicializa monitor de bordas (exemplo para entradas digitais)
+        self.di_mapping = config_manager.config['modbus_mapping']['digital_inputs']
+        self.edge_monitor = EdgeMonitor(mapping=self.di_mapping, read_snapshot=self._read_di_snapshot)
+        self.edge_monitor.start()
     
     def test_connection(self) -> bool:
         """Testa conectividade com Factory I/O"""
@@ -237,3 +244,17 @@ class MPScanner:
         except Exception as e:
             self.logger.error(f"Erro salvando descrições: {e}")
             return False
+
+    def _read_di_snapshot(self) -> Dict[int, bool]:
+        """Lê as entradas digitais e retorna um dict addr->bool para o EdgeMonitor."""
+        config = self.di_mapping
+        start = config['start_address']
+        count = config['count']
+
+        values = self.modbus_client.read_coils(start, count)
+        if not values:
+            return {}
+
+        return { start + i: bool(values[i]) for i in range(count) }
+
+scan = MPScanner(ConfigurationManager())
