@@ -1,7 +1,7 @@
 
-# Factory I/O Scanner
+# Scanner
 
-Scanner I/O configurável para Factory I/O com interface amigável e configuração flexível.
+Scanner I/O configurável para com interface amigável e configuração flexível.
 
 ## 🚀 Características
 
@@ -28,9 +28,9 @@ pip install -r requirements.txt
 Execute a aplicação:
 bash
 
-# Factory I/O Scanner
+# Scanner
 
-Scanner I/O configurável para Factory I/O com interface leve, logging e configuração flexível.
+Scanner I/O configurável para com interface leve, logging e configuração flexível.
 
 **Resumo rápido:**
 - **Entrada/Leitura**: escaneia I/Os via Modbus.
