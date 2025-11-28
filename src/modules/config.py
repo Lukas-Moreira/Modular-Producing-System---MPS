@@ -14,14 +14,16 @@ class ConfigurationManager:
     """
 
     _instance = None
+
     def __new__(cls, *args, **kwargs):
         if cls._instance is None:
             cls._instance = super(ConfigurationManager, cls).__new__(cls)
+            cls._initialized = False
         return cls._instance
 
     def __init__(self, config_file: str = "../../.cfg/config.json"):
 
-        if hasattr(self, "_initialized") and self._initialized:
+        if self.__class__._initialized:
             return
 
         # Garante que o diretorio seja baseado no arquivo local deste modulo

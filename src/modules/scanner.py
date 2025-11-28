@@ -1,4 +1,3 @@
-# scanner.py
 import json
 import logging
 from pathlib import Path
@@ -9,9 +8,23 @@ from config import ConfigurationManager
 from modbus_client import ModbusClientWrapper
 
 class MPScanner:
-    """Scanner I/O para Factory I/O com configuração flexível"""
+    """Scanner I/O para I/O com configuração flexível"""
+
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance in None:
+            cls._instance = super(MPScanner, cls).__new__(cls)
+            cls._initialize = False
+        return cls._instance         
     
     def __init__(self, config_manager: ConfigurationManager):
+
+        if self.__class__._initialize:
+            return
+        
+        self.__class__._initialize = True
+
         self.config_manager = config_manager
         self.logger = logging.getLogger('MPScanner')
         
@@ -36,9 +49,9 @@ class MPScanner:
         self.edge_monitor.start()
     
     def test_connection(self) -> bool:
-        """Testa conectividade com Factory I/O"""
+        """Testa conectividade com I/O"""
         if self.modbus_client.test_connection():
-            self.logger.info(f"Conectado ao Factory I/O")
+            self.logger.info(f"Conectado ao I/O")
             self._print_configuration()
             return True
         else:
@@ -211,7 +224,7 @@ class MPScanner:
         host = self.config_manager.get('connection.host')
         port = self.config_manager.get('connection.port')
         
-        print(f"✅ Conectado ao Factory I/O em {host}:{port}")
+        print(f"✅ Conectado ao I/O em {host}:{port}")
         print(f"🔧 Configuração detectada:")
         for io_type, config in mapping.items():
             print(f"   🔹 {config['description']}: {config['count']} "
@@ -257,4 +270,8 @@ class MPScanner:
 
         return { start + i: bool(values[i]) for i in range(count) }
 
+    @classmethod
+    def is_initialized(cls):
+        return getattr(cls, '_initialize', False)
+    
 scan = MPScanner(ConfigurationManager())

@@ -31,13 +31,14 @@ from __future__ import annotations
 
 import threading
 import time
-from typing import Callable, Dict, Iterable, List, Optional
+from typing import Callable, Dict, Iterable, List, Optional, overload
 import logging
+
+from services.enums import Verbose
 
 logger = logging.getLogger(__name__)
 
-
-def mapping_to_addresses(mapping: Dict) -> List[int]:
+def mapping_to_addresses(mapping: Dict, verbose: Optional[Verbose] = None) -> List[int]:
     """Converte um mapping com `start_address` e `count` em lista de endereços.
 
     Se a chave `addresses` estiver presente e for uma lista, retorna-a diretamente.
@@ -48,8 +49,12 @@ def mapping_to_addresses(mapping: Dict) -> List[int]:
         return list(mapping["addresses"])
     start = int(mapping.get("start_address", 0))
     count = int(mapping.get("count", 0))
-    return [start + i for i in range(count)]
+    list_map = [start + i for i in range(count)]
 
+    if verbose == 2:
+        print(f"List_map created: \n {list_map}")
+    
+    return list_map
 
 class EdgeMonitor:
     """ Classe para detecção de bordas (rising/falling) em endereços digitais.
@@ -87,6 +92,7 @@ class EdgeMonitor:
     def __new__(cls, *args, **kwargs):
         if cls._instance is None:
             cls._instance = super(EdgeMonitor, cls).__new__(cls)
+            cls._initialized = False
         return cls._instance
 
     def __init__(
@@ -97,13 +103,13 @@ class EdgeMonitor:
         poll_interval: float = 0.1,
     ) -> None:
         
-        if hasattr(self, "_initialized") and self._initialized:
+        if self.__class__._initialized:
             return
         
-        self._initialized = True
+        self.__class__._initialized = True
 
         if mapping is not None:
-            self.addresses = mapping_to_addresses(mapping)
+            self.addresses = mapping_to_addresses(mapping, verbose=Verbose.DEBUG)
         elif addresses is not None:
             self.addresses = list(addresses)
         else:
@@ -190,6 +196,11 @@ class EdgeMonitor:
         if self._thread:
             self._thread.join(timeout=1.0)
             self._thread = None
+
+    
+    @classmethod
+    def is_initialized(cls):
+        return getattr(cls,"_initialized",False)
 
 
 __all__ = ["EdgeMonitor", "mapping_to_addresses"]
