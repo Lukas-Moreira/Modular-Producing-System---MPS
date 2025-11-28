@@ -43,6 +43,7 @@ Scanner I/O configurável para com interface amigável e configuração flexíve
 1. Instale as dependências:
 ```bash
 pip install -r requirements.txt
+```
 Execute a aplicação:
 bash
 
@@ -57,28 +58,7 @@ Scanner I/O configurável para com interface leve, logging e configuração flex
 
 **Projeto em uma árvore**
 
-```
-├── 📁 .cfg
-│   └── ⚙️ config.json
-├── 📁 scan_complete
-│   └── 🐍 factory_io_scanner_complete.py
-├── 📁 src
-│   ├── 📁 controllers
-│   ├── 📁 logs
-│   ├── 📁 modules
-│   │   ├── 🐍 config.py
-│   │   ├── 🐍 edge_monitor.py
-│   │   ├── 🐍 modbus_client.py
-│   │   └── 🐍 scanner.py
-│   ├── 📁 services
-│   │   ├── 🐍 ui.py
-│   │   └── 🐍 utils.py
-│   └── 🐍 main.py
-├── 📁 tests
-│   └── 🐍 test_edge.py
-├── 📝 README.md
-└── 📄 requirements.txt
-```
+
 
 **Observação:** este `README` documenta o projeto como está na árvore acima (pt-BR).
 
