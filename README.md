@@ -15,10 +15,28 @@ Scanner I/O configurável para com interface amigável e configuração flexíve
 
 ## 📁 Estrutura do Projeto
 
-factory_io_scanner/ ├── main.py # Arquivo principal ├── config.py # Gerenciamento de configurações ├── scanner.py # Lógica de escaneamento ├── modbus_client.py # Cliente Modbus ├── ui.py # Interface do usuário ├── utils.py # Utilitários e logging ├── requirements.txt # Dependências ├── config.json # Configuração (gerado automaticamente) ├── factory_io_descriptions.json # Descrições personalizadas └── logs/ # Diretório de logs └── factory_io_scanner.log
-text
-
-
+```
+├── 📁 .cfg
+│   └── ⚙️ config.json
+├── 📁 scan_complete
+│   └── 🐍 factory_io_scanner_complete.py
+├── 📁 src
+│   ├── 📁 controllers
+│   ├── 📁 logs
+│   ├── 📁 modules
+│   │   ├── 🐍 config.py
+│   │   ├── 🐍 edge_monitor.py
+│   │   ├── 🐍 modbus_client.py
+│   │   └── 🐍 scanner.py
+│   ├── 📁 services
+│   │   ├── 🐍 ui.py
+│   │   └── 🐍 utils.py
+│   └── 🐍 main.py
+├── 📁 tests
+│   └── 🐍 test_edge.py
+├── 📝 README.md
+└── 📄 requirements.txt
+```
 
 ## ⚙️ Instalação
 
