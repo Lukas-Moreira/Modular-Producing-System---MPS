@@ -84,16 +84,14 @@ class MPScanner:
             """
             self.clients_info[key] = f"{svc} ({conn.get('host')}:{conn.get('port')})"
 
-            # Mantém compatibilidade com código que espera atributos individuais
+            # Seta o atributo dinâmico para acesso direto (ex: self.source_modbus_client)
             setattr(self, f"{key}_modbus_client", client)
+
             # mapear título/section do config para serviço (usado em leituras por cliente)
             self.service_title_map[key] = svc
 
             # criar/obter estados singleton para este cliente (inputs/outputs)
             state = ClientIOStateManager.get_state(key)
-            print(
-                f"[MPScanner] created state for {key} -> inputs={state.get_inputs_snapshot()} outputs={state.get_outputs_snapshot()}"
-            )
 
         # Estruturas de dados
         self.io_data: List[Dict] = []
@@ -111,6 +109,7 @@ class MPScanner:
                 di_cfg = self.config_manager.config[svc]["modbus_mapping"][
                     "digital_inputs"
                 ]
+
             except Exception:
                 di_cfg = self.config_manager.config.get("modbus_mapping", {}).get(
                     "digital_inputs"
@@ -133,6 +132,7 @@ class MPScanner:
                 do_cfg = self.config_manager.config[svc]["modbus_mapping"][
                     "digital_outputs"
                 ]
+
             except Exception:
                 do_cfg = self.config_manager.config.get("modbus_mapping", {}).get(
                     "digital_outputs"
@@ -166,6 +166,12 @@ class MPScanner:
 
         # registrar callback que atualiza apenas as listas de entradas por cliente
         self.edge_monitor.register_callback(self._on_edge_event)
+
+        # Nota: não executamos o escaneamento automaticamente no construtor
+        # para evitar efeitos colaterais (leitura de I/Os) durante a
+        # criação do objeto. O escaneamento deve ser iniciado explicitamente
+        # por `scan_all_ios()` para evitar logs duplicados e chamadas
+        # repetidas de teste de conexão.
 
     def _on_edge_event(self, addr, edge, old, new):
         """Callback registrado no EdgeMonitor: atualiza o ClientIOState correspondente.
