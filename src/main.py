@@ -1,8 +1,15 @@
+import sys
 import logging
-from src.modules.config import ConfigurationManager
-from src.modules.scanner import MPScanner
-from src.services.ui import UserInterface, get_valid_choice
-from src.services.utils import setup_logging
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "src"
+sys.path.append(str(SRC))
+
+from modules.config import ConfigurationManager
+from modules.scanner import MPScanner
+from services.ui import UserInterface, get_valid_choice
+from services.utils import setup_logging
 
 def show_current_config(config_manager: ConfigurationManager):
     """Exibe configuração atual"""
@@ -28,6 +35,7 @@ def main():
         
         # Testa conexão inicial
         if not scanner.test_connection():
+            print("🚨 chamada no main")
             print("❌ Não foi possível conectar!")
             print("💡 Verifique se o Factory I/O está rodando")
             print("💡 Verifique IP/porta no arquivo config.json")

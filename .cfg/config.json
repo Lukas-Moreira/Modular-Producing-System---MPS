@@ -1,44 +1,46 @@
 {
-    "connection": {
-        "host": "10.5.0.2",
-        "port": 5021,
-        "timeout": 5.0,
-        "auto_open": true,
-        "auto_close": true
-    },
-    "modbus_mapping": {
-        "digital_inputs": {
-            "count": 30,
-            "start_address": 0,
-            "register_type": "COIL",
-            "description": "Botões e Sensores"
+    "Source": {
+        "connection": {
+            "host": "192.168.64.1",
+            "port": 5021,
+            "timeout": 5.0,
+            "auto_open": true,
+            "auto_close": true
         },
-        "digital_outputs": {
-            "count": 29,
-            "start_address": 0,
-            "register_type": "DISCRETE_INPUT",
-            "description": "Motores, Luzes e Válvulas"
+        "modbus_mapping": {
+            "digital_inputs": {
+                "count": 30,
+                "start_address": 0,
+                "register_type": "DISCRETE_INPUT",
+                "description": "Botões e Sensores"
+            },
+            "digital_outputs": {
+                "count": 29,
+                "start_address": 0,
+                "register_type": "COIL",
+                "description": "Motores, Luzes e Válvulas"
+            },
+            "analog_inputs": {
+                "count": 8,
+                "start_address": 0,
+                "register_type": "HOLDING_REGISTER",
+                "description": "Sensores Analógicos"
+            },
+            "analog_outputs": {
+                "count": 8,
+                "start_address": 0,
+                "register_type": "INPUT_REGISTER",
+                "description": "Setpoints e Comandos"
+            }
         },
-        "analog_inputs": {
-            "count": 8,
-            "start_address": 0,
-            "register_type": "HOLDING_REGISTER",
-            "description": "Sensores Analógicos"
+        "display": {
+            "scale_factor": 100,
+            "decimal_places": 2,
+            "show_inactive_analogs": false
         },
-        "analog_outputs": {
-            "count": 8,
-            "start_address": 0,
-            "register_type": "INPUT_REGISTER",
-            "description": "Setpoints e Comandos"
+        "files": {
+            "descriptions_file": "factory_io_descriptions.json",
+            "log_level": "INFO"
         }
-    },
-    "display": {
-        "scale_factor": 100,
-        "decimal_places": 2,
-        "show_inactive_analogs": false
-    },
-    "files": {
-        "descriptions_file": "factory_io_descriptions.json",
-        "log_level": "INFO"
     }
 }

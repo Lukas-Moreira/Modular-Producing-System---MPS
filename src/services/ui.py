@@ -1,11 +1,18 @@
-# ui.py
+import os
+import sys
+from pathlib import Path
 from typing import List, Dict
-from src.modules.scanner import FactoryIOScanner
+
+ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "src"
+sys.path.append(str(SRC))
+
+from modules.scanner import MPScanner
 
 class UserInterface:
     """Interface do usuário para o scanner Factory I/O"""
     
-    def __init__(self, scanner: FactoryIOScanner):
+    def __init__(self, scanner: MPScanner):
         self.scanner = scanner
     
     def display_table(self, filter_type: str = 'ALL'):
@@ -43,6 +50,8 @@ class UserInterface:
     
     def _print_table(self, data: List[Dict], filter_type: str):
         """Imprime tabela formatada"""
+        os.system('cls' if sys.platform == 'win32' else 'clear')
+        
         title = f"TABELA I/O FACTORY I/O - ({len(data)} registros)"
         if filter_type != 'ALL':
             title += f" - FILTRO: {filter_type}"

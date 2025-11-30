@@ -256,17 +256,17 @@ class FactoryIOScanner:
             return False
     
     def _scan_digital_inputs(self):
-        """Escaneia entradas digitais (COILS) - Botões e Sensores"""
+        """Escaneia entradas digitais (DISCRETE INPUTS) - Botões e Sensores"""
         config = self.config_manager.config['modbus_mapping']['digital_inputs']
         
         try:
-            coils = self.client.read_coils(
+            discretes = self.client.read_discrete_inputs(
                 config['start_address'], 
                 config['count']
             )
             
-            if coils:
-                for i, value in enumerate(coils):
+            if discretes:
+                for i, value in enumerate(discretes):
                     address = config['start_address'] + i
                     key = f"DI_{address:02d}"
                     
@@ -291,17 +291,17 @@ class FactoryIOScanner:
             raise
     
     def _scan_digital_outputs(self):
-        """Escaneia saídas digitais (DISCRETE INPUTS) - Motores e Luzes"""
+        """Escaneia saídas digitais (COILS) - Motores e Luzes"""
         config = self.config_manager.config['modbus_mapping']['digital_outputs']
         
         try:
-            discretes = self.client.read_discrete_inputs(
+            coils = self.client.read_coils(
                 config['start_address'], 
                 config['count']
             )
             
-            if discretes:
-                for i, value in enumerate(discretes):
+            if coils:
+                for i, value in enumerate(coils):
                     address = config['start_address'] + i
                     key = f"DO_{address:02d}"
                     

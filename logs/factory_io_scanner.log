@@ -1,0 +1,2 @@
+2025-11-28 22:22:08,085 - FactoryIO - ERROR - Erro inesperado na main: ModbusClientWrapper.__init__() got an unexpected keyword argument 'retries'
+2025-11-29 14:02:56,360 - FactoryIO - ERROR - Falha na conexão - sem resposta do servidor

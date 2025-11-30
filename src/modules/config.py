@@ -7,10 +7,10 @@ from typing import Dict, Any
 
 class ConfigurationManager:
     """Gerenciador centralizado de configurações da aplicação
-    
+
     Utiliza o padrão Singleton para garantir uma única instância
     e mantém a configuração carregada do arquivo JSON.
-    
+
     """
 
     _instance = None
@@ -18,12 +18,11 @@ class ConfigurationManager:
     def __new__(cls, *args, **kwargs):
         if cls._instance is None:
             cls._instance = super(ConfigurationManager, cls).__new__(cls)
-            cls._initialized = False
         return cls._instance
 
     def __init__(self, config_file: str = "../../.cfg/config.json"):
 
-        if self.__class__._initialized:
+        if getattr(self.__class__, "_initialized", False):
             return
 
         # Garante que o diretorio seja baseado no arquivo local deste modulo
@@ -37,11 +36,14 @@ class ConfigurationManager:
         print(f"State on config file: {self.config_file}")
         self.default_config = {
             "connection": {
-                "host": "10.5.0.2",
+                "host": "127.0.0.1",
                 "port": 5021,
                 "timeout": 5.0,
                 "auto_open": True,
                 "auto_close": True,
+                "retries": 5,
+                "retry_delay": 1.0,
+                "retry_backoff": 2.0,
             },
             "modbus_mapping": {
                 "digital_inputs": {
