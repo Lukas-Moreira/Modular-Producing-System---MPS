@@ -116,16 +116,13 @@ class MPScanner:
                 )
 
             if di_cfg:
-                start = int(di_cfg.get("start_address", 0))
-                count = int(di_cfg.get("count", 0))
-                addrs = [start + i for i in range(count)]
-                # montar descrições por endereco: procura por chave 'clientkey_DI_{addr:02d}'
-                desc_map = {}
-                for a in addrs:
-                    key = f"{client_key}_DI_{a:02d}"
-                    desc_map[a] = self.custom_descriptions.get(key, "")
-                state = ClientIOStateManager.get_state(client_key)
-                state.initialize_inputs(addrs, desc_map)
+                # tenta obter endereços e descrições a partir de `.cfg/mapping.json`
+                addrs, desc_map = self._get_addresses_and_descriptions(
+                    client_key, svc, "digital_inputs", di_cfg
+                )
+                if addrs:
+                    state = ClientIOStateManager.get_state(client_key)
+                    state.initialize_inputs(addrs, desc_map)
 
             # digital outputs
             try:
@@ -139,30 +136,45 @@ class MPScanner:
                 )
 
             if do_cfg:
-                start = int(do_cfg.get("start_address", 0))
-                count = int(do_cfg.get("count", 0))
-                addrs = [start + i for i in range(count)]
-                desc_map = {}
-                for a in addrs:
-                    key = f"{client_key}_DO_{a:02d}"
-                    desc_map[a] = self.custom_descriptions.get(key, "")
-                state = ClientIOStateManager.get_state(client_key)
-                state.initialize_outputs(addrs, desc_map)
+                addrs, desc_map = self._get_addresses_and_descriptions(
+                    client_key, svc, "digital_outputs", do_cfg
+                )
+                if addrs:
+                    state = ClientIOStateManager.get_state(client_key)
+                    state.initialize_outputs(addrs, desc_map)
 
         # Inicializa monitor de bordas (exemplo para entradas digitais)
         self.di_mapping = config_manager.config["modbus_mapping"]["digital_inputs"]
 
         # Passa também o dicionário de clients e uma função que lê as DI por cliente
+        # Ao habilitar monitor por cliente, não passamos o mapping global
+        # para evitar que o EdgeMonitor mantenha chaves inteiras (ints)
+        # e chaves prefixadas simultaneamente. O monitor irá criar as
+        # chaves prefixed ("client:addr") ao processar snapshots por cliente.
         self.edge_monitor = EdgeMonitor(
-            mapping=self.di_mapping,
-            read_snapshot=self._read_di_snapshot,
+            mapping=None,
+            read_snapshot=None,
             clients=self.clients,
             client_read_fn=self._client_read_di_snapshot,
             client_poll_interval=self.config_manager.get(
                 "scan.client_poll_interval", 0.1
             ),
         )
+        # opcional: debouncing para reduzir flapping (padrão 1 = sem debounce)
+        try:
+            self.edge_monitor.debounce_count = int(
+                self.config_manager.get("scan.debounce_count", 1)
+            )
+        except Exception:
+            pass
         self.edge_monitor.start()
+
+        # Registrar listener para receber notificações diretas de ClientIOState
+        # Isso garante que chamadas a `state.set_input(...)` disparem o EdgeMonitor
+        try:
+            ClientIOStateManager.register_listener(self._on_client_state_change)
+        except Exception:
+            self.logger.exception("Falha ao registrar listener de ClientIOState")
 
         # registrar callback que atualiza apenas as listas de entradas por cliente
         self.edge_monitor.register_callback(self._on_edge_event)
@@ -179,7 +191,7 @@ class MPScanner:
         Espera `addr` no formato "client_key:address" quando o EdgeMonitor estiver
         rodando em modo por-client. Se `addr` for int, ignora (global snapshot mode).
         """
-        # somente atualizamos quando recebemos eventos por cliente (formatado)
+        # Se recebemos eventos por cliente (formatado como 'client:addr')
         if isinstance(addr, str) and ":" in addr:
             client_key, raw_addr = addr.split(":", 1)
             try:
@@ -189,9 +201,57 @@ class MPScanner:
 
             state = ClientIOStateManager.get_state(client_key)
             # apenas EdgeMonitor usa esta API para atualizar inputs
-            state.set_input(address, new)
+            # Ao atualizar a partir do EdgeMonitor, suprimimos notificações
+            # para evitar ciclo de callbacks (EdgeMonitor -> scanner -> state -> listener -> EdgeMonitor)
+            state.set_input(address, new, notify=False)
+            snapshot = state.get_inputs_snapshot()
+            addr_state = {entry["addr"]: entry["state"] for entry in snapshot}
             print(
-                f"[EdgeEvent] {client_key} addr={address} edge={edge} -> inputs={state.get_inputs_snapshot()}"
+                f"[EdgeEvent] {client_key} addr={address} edge={edge} -> inputs={json.dumps(addr_state, indent=4, ensure_ascii=False)}"
+            )
+            return
+
+        # Se o EdgeMonitor fornecer um endereço inteiro (modo global), atribuímos
+        # ao primeiro cliente configurado para manter o estado sincronizado.
+        if isinstance(addr, int):
+            first_client = next(iter(self.clients.keys()), None)
+            if first_client is None:
+                return
+            address = int(addr)
+            try:
+                state = ClientIOStateManager.get_state(first_client)
+                # atualizações provenientes do EdgeMonitor não devem notificar
+                state.set_input(address, new, notify=False)
+                snapshot = state.get_inputs_snapshot()
+                addr_state = {entry["addr"]: entry["state"] for entry in snapshot}
+                print(
+                    f"[EdgeEvent] {first_client} addr={address} edge={edge} -> inputs={json.dumps(addr_state, indent=4, ensure_ascii=False)}"
+                )
+            except Exception:
+                self.logger.exception(
+                    "Erro processando evento global de borda %s", addr
+                )
+
+    def _on_client_state_change(self, client_key: str, addr: int, old: bool, new: bool):
+        """Forward de notificações diretas de ClientIOState ao EdgeMonitor.
+
+        Recebe chamadas do `ClientIOStateManager` quando `set_input` altera um
+        estado. Encaminha para `edge_monitor.process_snapshot` no formato
+        `{f"{client_key}:{addr}": new}` para que o EdgeMonitor detecte bordas
+        e notifique callbacks registrados.
+        """
+        try:
+            try:
+                print(
+                    f"[MPScanner] client_state_change -> {client_key}:{addr} {old}->{new}"
+                )
+            except Exception:
+                pass
+            if hasattr(self, "edge_monitor") and self.edge_monitor:
+                self.edge_monitor.process_snapshot({f"{client_key}:{addr}": bool(new)})
+        except Exception:
+            self.logger.exception(
+                "Erro ao encaminhar ClientIOState change para EdgeMonitor"
             )
 
     def _client_read_di_snapshot(self, client_key: str, client) -> Dict[int, bool]:
@@ -211,7 +271,8 @@ class MPScanner:
                 return {}
 
         try:
-            values = client.read_coils(cfg["start_address"], cfg["count"])
+            # digital_inputs correspondem a DISCRETE INPUTS (função read_discrete_inputs)
+            values = client.read_discrete_inputs(cfg["start_address"], cfg["count"])
         except Exception as e:
             self.logger.exception(
                 f"Erro lendo coils de {client_key} (client mode): {e}"
@@ -220,6 +281,15 @@ class MPScanner:
 
         if not values:
             return {}
+
+        # debug: mostrar snapshot retornado pelo client
+        try:
+            snapshot = {
+                cfg["start_address"] + i: bool(values[i])
+                for i in range(min(cfg["count"], len(values)))
+            }
+        except Exception:
+            snapshot = {}
 
         return {
             cfg["start_address"] + i: bool(values[i])
@@ -566,6 +636,94 @@ class MPScanner:
             self.logger.error(f"Erro salvando descrições: {e}")
             return False
 
+    def _get_addresses_and_descriptions(
+        self, client_key: str, svc: str, category: str, cfg: Dict
+    ):
+        """Tenta obter lista de endereços e mapa de descrições a partir de
+        `.cfg/mapping.json` para o serviço `svc` e categoria (`digital_inputs`/`digital_outputs`).
+
+        Retorna (addrs: List[int], desc_map: Dict[int, str]). Em caso de
+        falha, faz fallback para utilizar `cfg[start_address,count]` e
+        `self.custom_descriptions`.
+        """
+        mapping_file = Path(self.config_manager.config_file.parent) / "mapping.json"
+
+        if mapping_file.exists():
+            try:
+                with mapping_file.open("r", encoding="utf-8") as f:
+                    mapping = json.load(f)
+
+                svc_block = (
+                    mapping.get(svc, {}).get("modbus_mapping", {}).get(category, {})
+                )
+                addr_block = svc_block.get("address")
+                if isinstance(addr_block, dict):
+                    addrs, desc_map = self._parse_address_block(addr_block)
+                    return addrs, desc_map
+            except Exception:
+                self.logger.exception("Erro lendo .cfg/mapping.json")
+
+        # fallback: utiliza start/count e custom_descriptions
+        try:
+            start = int(cfg.get("start_address", 0))
+            count = int(cfg.get("count", 0))
+        except Exception:
+            return [], {}
+
+        addrs = [start + i for i in range(count)]
+        desc_map = {}
+        # gera a chave esperada em custom_descriptions (usa client_key)
+        for a in addrs:
+            di_or_do = "DI" if category == "digital_inputs" else "DO"
+            key = f"{client_key}_{di_or_do}_{a:02d}"
+            desc_map[a] = self.custom_descriptions.get(key, "")
+
+        return addrs, desc_map
+
+    def _parse_address_block(self, addr_block: Dict) -> tuple:
+        """Parses the 'address' block from mapping.json and returns
+        (sorted_addresses, description_map).
+
+        The addr_block is expected to be a dict like { 'addr0': { 'input': 0, 'description': '...' }, ... }
+        """
+        items = []
+        for k, info in addr_block.items():
+            if not isinstance(info, dict):
+                continue
+            # tenta detectar o campo com o número do endereço
+            address = None
+            for field in [
+                "input",
+                "coil",
+                "holding_input_register",
+                "holding_register",
+            ]:
+                if field in info:
+                    try:
+                        address = int(info[field])
+                        break
+                    except Exception:
+                        continue
+
+            if address is None:
+                # fallback: pega o primeiro valor inteiro encontrado
+                for v in info.values():
+                    if isinstance(v, int):
+                        address = v
+                        break
+
+            if address is None:
+                continue
+
+            description = info.get("description", "") or ""
+            items.append((address, description))
+
+        # ordena e retorna
+        items.sort(key=lambda x: x[0])
+        addrs = [a for a, _ in items]
+        desc_map = {a: d for a, d in items}
+        return addrs, desc_map
+
     def _read_di_snapshot(self) -> Dict[int, bool]:
         """Lê as entradas digitais e retorna um dict addr->bool para o EdgeMonitor."""
         config = self.di_mapping
@@ -576,7 +734,8 @@ class MPScanner:
         values = None
         for client in self.clients.values():
             try:
-                values = client.read_coils(start, count)
+                # usar leitura de discrete inputs (DISCRETE)
+                values = client.read_discrete_inputs(start, count)
                 if values:
                     break
             except Exception:

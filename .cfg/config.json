@@ -9,25 +9,25 @@
         },
         "modbus_mapping": {
             "digital_inputs": {
-                "count": 30,
+                "count": 6,
                 "start_address": 0,
                 "register_type": "DISCRETE_INPUT",
                 "description": "Botões e Sensores"
             },
             "digital_outputs": {
-                "count": 29,
+                "count": 6,
                 "start_address": 0,
                 "register_type": "COIL",
                 "description": "Motores, Luzes e Válvulas"
             },
             "analog_inputs": {
-                "count": 8,
+                "count": 6,
                 "start_address": 0,
                 "register_type": "HOLDING_REGISTER",
                 "description": "Sensores Analógicos"
             },
             "analog_outputs": {
-                "count": 8,
+                "count": 6,
                 "start_address": 0,
                 "register_type": "INPUT_REGISTER",
                 "description": "Setpoints e Comandos"
@@ -42,119 +42,10 @@
             "descriptions_file": "factory_io_descriptions.json",
             "log_level": "INFO"
         }
-    },
-    "Conveyor": {
-        "connection": {
-            "host": "192.168.64.1",
-            "port": 5021,
-            "timeout": 5.0,
-            "auto_open": true,
-            "auto_close": true
-        },
-        "modbus_mapping": {
-            "digital_inputs": {
-                "count": 30,
-                "start_address": 0,
-                "register_type": "DISCRETE_INPUT",
-                "description": "Botões e Sensores"
-            },
-            "digital_outputs": {
-                "count": 29,
-                "start_address": 0,
-                "register_type": "COIL",
-                "description": "Motores, Luzes e Válvulas"
-            },
-            "analog_inputs": {
-                "count": 8,
-                "start_address": 0,
-                "register_type": "HOLDING_REGISTER",
-                "description": "Sensores Analógicos"
-            },
-            "analog_outputs": {
-                "count": 8,
-                "start_address": 0,
-                "register_type": "INPUT_REGISTER",
-                "description": "Setpoints e Comandos"
-            }
-        },
-        "display": {
-            "scale_factor": 100,
-            "decimal_places": 2,
-            "show_inactive_analogs": false
-        },
-        "files": {
-            "descriptions_file": "factory_io_descriptions.json",
-            "log_level": "INFO"
-        }
-    },
-    "Deposit": {
-        "connection": {
-            "host": "192.168.64.1",
-            "port": 5021,
-            "timeout": 5.0,
-            "auto_open": true,
-            "auto_close": true
-        },
-        "modbus_mapping": {
-            "digital_inputs": {
-                "count": 30,
-                "start_address": 0,
-                "register_type": "DISCRETE_INPUT",
-                "description": "Botões e Sensores"
-            },
-            "digital_outputs": {
-                "count": 29,
-                "start_address": 0,
-                "register_type": "COIL",
-                "description": "Motores, Luzes e Válvulas"
-            },
-            "analog_inputs": {
-                "count": 8,
-                "start_address": 0,
-                "register_type": "HOLDING_REGISTER",
-                "description": "Sensores Analógicos"
-            },
-            "analog_outputs": {
-                "count": 8,
-                "start_address": 0,
-                "register_type": "INPUT_REGISTER",
-                "description": "Setpoints e Comandos"
-            }
-        },
-        "display": {
-            "scale_factor": 100,
-            "decimal_places": 2,
-            "show_inactive_analogs": false
-        },
-        "files": {
-            "descriptions_file": "factory_io_descriptions.json",
-            "log_level": "INFO"
-        }
-    },
-    "UR_Robot": {
-        "connection": {
-            "host": "192.168.64.1",
-            "port": 5021,
-            "timeout": 5.0,
-            "auto_open": true,
-            "auto_close": true
-        },
-        "modbus_mapping": {
-            "digital_inputs": {
-                "count": 30,
-                "start_address": 0,
-                "register_type": "COIL",
-                "description": "Botões e Sensores"
-            }
-        },
-        "display": {
-            "scale_factor": 100,
-            "decimal_places": 2,
-            "show_inactive_analogs": false
-        },
-        "files": {
-            "descriptions_file": "factory_io_descriptions.json",
-            "log_level": "INFO"
-        }
+    }
+,
+    "scan": {
+        "debounce_count": 1,
+        "client_poll_interval": 0.25
     }
 }

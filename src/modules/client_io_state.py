@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import threading
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Callable
+import logging
 
 
 class ClientIOState:
@@ -22,16 +23,34 @@ class ClientIOState:
         self.inputs: List[Dict[str, object]] = []
         self.outputs: List[Dict[str, object]] = []
 
-    def set_input(self, address: int, value: bool) -> None:
+    def set_input(self, address: int, value: bool, notify: bool = True) -> None:
+        # altera o estado apenas se houver mudança e notifica listeners
+        old_state = False
+        changed = False
         with self._lock:
             for entry in self.inputs:
                 if int(entry.get("addr")) == int(address):
-                    entry["state"] = bool(value)
-                    return
-            # se não existir, adiciona
-            self.inputs.append(
-                {"addr": int(address), "state": bool(value), "description": ""}
-            )
+                    old_state = bool(entry.get("state", False))
+                    if old_state != bool(value):
+                        entry["state"] = bool(value)
+                        changed = True
+                    break
+            else:
+                # se não existir, considera old_state False e adiciona
+                self.inputs.append(
+                    {"addr": int(address), "state": bool(value), "description": ""}
+                )
+                old_state = False
+                changed = True
+
+        if changed and notify:
+            # notificar fora do lock para evitar deadlocks
+            try:
+                ClientIOStateManager._notify_listeners(
+                    self.client_key, int(address), old_state, bool(value)
+                )
+            except Exception:
+                pass
 
     def set_output(self, address: int, value: bool) -> None:
         with self._lock:
@@ -87,6 +106,8 @@ class ClientIOStateManager:
 
     _instances: Dict[str, ClientIOState] = {}
     _global_lock = threading.RLock()
+    # listeners: fn(client_key: str, addr: int, old: bool, new: bool)
+    _listeners: List[Callable[[str, int, bool, bool], None]] = []
 
     @classmethod
     def get_state(cls, client_key: str) -> ClientIOState:
@@ -99,6 +120,43 @@ class ClientIOStateManager:
     def list_keys(cls) -> List[str]:
         with cls._global_lock:
             return list(cls._instances.keys())
+
+    @classmethod
+    def register_listener(cls, cb: Callable[[str, int, bool, bool], None]) -> None:
+        with cls._global_lock:
+            cls._listeners.append(cb)
+
+    @classmethod
+    def unregister_listener(cls, cb: Callable[[str, int, bool, bool], None]) -> None:
+        with cls._global_lock:
+            try:
+                cls._listeners.remove(cb)
+            except ValueError:
+                pass
+
+    @classmethod
+    def _notify_listeners(
+        cls, client_key: str, addr: int, old: bool, new: bool
+    ) -> None:
+        # chamar cópia para evitar problemas se listeners modificarem a lista
+        with cls._global_lock:
+            listeners = list(cls._listeners)
+        logger = logging.getLogger("ClientIOStateManager")
+        # info de debug sobre notificações
+        try:
+            logger.info(f"notify -> {client_key}:{addr} {old}->{new}")
+        except Exception:
+            pass
+
+        for cb in listeners:
+            try:
+                cb(client_key, addr, old, new)
+            except Exception:
+                logger.exception(
+                    "Erro em listener de ClientIOStateManager para %s:%s",
+                    client_key,
+                    addr,
+                )
 
 
 __all__ = ["ClientIOState", "ClientIOStateManager"]

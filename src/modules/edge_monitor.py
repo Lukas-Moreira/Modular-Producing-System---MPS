@@ -23,8 +23,6 @@ Exemplo de utilização:
     # No seu loop de leitura, produza um dicionário de instantâneos: {address: bool}
     snapshot = {0: False, 1: True, 2: False}
     monitor.process_snapshot(snapshot)
-
-Para o modo de sondagem, crie com `read_snapshot` chamável e chame `start()` / `stop()`.
 """
 
 from __future__ import annotations
@@ -122,7 +120,13 @@ class EdgeMonitor:
             self.addresses = []
 
         # estado anterior (inicia como False para todos)
+        # estados estáveis confirmados
         self._prev: Dict[int, bool] = {addr: False for addr in self.addresses}
+        # para debouncing: candidato e contadores
+        self._candidate: Dict[int, bool] = {}
+        self._candidate_count: Dict[int, int] = {}
+        # quantas leituras consecutivas são necessárias para confirmar mudança
+        self.debounce_count: int = 1
 
         # callbacks: fn(address, edge, old, new)
         self._callbacks: List[Callable[[int, str, bool, bool], None]] = []
@@ -178,11 +182,33 @@ class EdgeMonitor:
         for addr in self.addresses:
             old = self._prev.get(addr, False)
             new = bool(snapshot.get(addr, False))
-            if new != old:
-                edge = "rising" if new else "falling"
-                self._prev[addr] = new
-                events.append((addr, edge, old, new))
-                self._emit(addr, edge, old, new)
+
+            # sem debouncing (comportamento padrão)
+            if self.debounce_count <= 1:
+                if new != old:
+                    edge = "rising" if new else "falling"
+                    self._prev[addr] = new
+                    events.append((addr, edge, old, new))
+                    self._emit(addr, edge, old, new)
+                continue
+
+            # com debouncing: aguardar 'debounce_count' leituras consecutivas
+            cand = self._candidate.get(addr)
+            if cand is None or cand != new:
+                self._candidate[addr] = new
+                self._candidate_count[addr] = 1
+            else:
+                self._candidate_count[addr] = self._candidate_count.get(addr, 0) + 1
+
+            if self._candidate_count.get(addr, 0) >= self.debounce_count:
+                # confirmar mudança
+                if new != old:
+                    edge = "rising" if new else "falling"
+                    self._prev[addr] = new
+                    events.append((addr, edge, old, new))
+                    self._emit(addr, edge, old, new)
+                # reset candidato
+                self._candidate_count[addr] = 0
 
         return events
 
@@ -227,9 +253,12 @@ class EdgeMonitor:
         if self._thread and self._thread.is_alive():
             return
         self._running.set()
-        # thread global (se houver read_snapshot)
-        self._thread = threading.Thread(target=self._poll_loop, daemon=True)
-        self._thread.start()
+        # thread global: somente se uma função de leitura global foi fornecida
+        if callable(self.read_snapshot):
+            self._thread = threading.Thread(target=self._poll_loop, daemon=True)
+            self._thread.start()
+        else:
+            self._thread = None
 
         # iniciar threads por cliente, se fornecidos
         if self.clients and callable(self.client_read_fn):
@@ -241,15 +270,20 @@ class EdgeMonitor:
                 )
                 self._client_threads[key] = t
                 t.start()
-        
+
         # depois de iniciar as threads por cliente
-        print(f"[EdgeMonitor] global_thread_started={bool(self._thread)} clients_monitors={len(self._client_threads)}")
+        print(
+            f"[EdgeMonitor] global_thread_started={bool(self._thread)} clients_monitors={len(self._client_threads)} debounce_count={self.debounce_count}"
+        )
 
     def stop(self) -> None:
         """Para o loop de polling (se estiver rodando)."""
         self._running.clear()
         if self._thread:
-            self._thread.join(timeout=1.0)
+            try:
+                self._thread.join(timeout=1.0)
+            except Exception:
+                pass
             self._thread = None
         # terminar threads dos clientes
         for key, t in list(self._client_threads.items()):

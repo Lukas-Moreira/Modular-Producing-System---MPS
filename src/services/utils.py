@@ -37,11 +37,13 @@ def setup_logging(log_level: str = "INFO") -> logging.Logger:
         pass
 
     logging.basicConfig(
-        filename=log_path / 'Modular_Producing_System.log', # Nome do arquivo de log
-        filemode='w',                                       # Sobrescreve o arquivo a cada execução
-        level=getattr(logging, log_level.upper()),          # Nível mínimo de mensagens a registrar
-        format='%(asctime)s - %(name)s -  %(levelname)s - %(message)s',  # Formato do log
-        encoding='utf-8'                                    # Encoding do arquivo de log
+        filename=log_path / "Modular_Producing_System.log",  # Nome do arquivo de log
+        filemode="w",  # Sobrescreve o arquivo a cada execução
+        level=getattr(
+            logging, log_level.upper()
+        ),  # Nível mínimo de mensagens a registrar
+        format="%(asctime)s - %(name)s -  %(levelname)s - %(message)s",  # Formato do log
+        encoding="utf-8",  # Encoding do arquivo de log
     )
 
     # Configuramos handlers manualmente para evitar que logging.basicConfig
@@ -63,9 +65,9 @@ def setup_logging(log_level: str = "INFO") -> logging.Logger:
         file_handler.setFormatter(file_formatter)
         logger.addHandler(file_handler)
 
-        # Handler para console (apenas erros)
+        # Handler para console (mostrar INFO no terminal para facilitar debug)
         console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.ERROR)
+        console_handler.setLevel(logging.INFO)
         console_formatter = CustomFormatter("%(levelname)s - %(message)s")
         console_handler.setFormatter(console_formatter)
         logger.addHandler(console_handler)

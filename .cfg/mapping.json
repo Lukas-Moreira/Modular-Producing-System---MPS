@@ -1,0 +1,134 @@
+{
+    "Source": {
+        "modbus_mapping": {
+            "digital_inputs": {
+                "address": {
+                    "addr0": {
+                        "input": 0,
+                        "description": "Botão Emergencia"
+                    },
+                    "addr1": {
+                        "input": 1,
+                        "description": "Botão Start"
+                    },
+                    "addr2": {
+                        "input": 2,
+                        "description": "Botão Stop"
+                    },
+                    "addr3": {
+                        "input": 3,
+                        "description": "Botão 1"
+                    },
+                    "addr4": {
+                        "input": 4,
+                        "description": "Botão 2"
+                    },
+                    "addr5": {
+                        "input": 5,
+                        "description": "Botão 3"
+                    },
+                    "addr6": {
+                        "input": 6,
+                        "description": "Botão 4"
+                    }
+                }
+            },
+            "digital_outputs": {
+                "address": {
+                    "addr0": {
+                        "coil": 0,
+                        "description": "Luz Emergencia"
+                    },
+                    "addr1": {
+                        "coil": 1,
+                        "description": "Luz Verde"
+                    },
+                    "addr2": {
+                        "coil": 2,
+                        "description": "Luz Vermelha"
+                    },
+                    "addr3": {
+                        "coil": 3,
+                        "description": "Motor Esteira"
+                    },
+                    "addr4": {
+                        "coil": 4,
+                        "description": "Braço Pneumático"
+                    },
+                    "addr5": {
+                        "coil": 5,
+                        "description": "Válvula Solenóide"
+                    },
+                    "addr6": {
+                        "coil": 6,
+                        "description": "Elevador"
+                    }
+                }
+            },
+            "analog_inputs": {
+                "address": {
+                    "addr0": {
+                        "holding_input_register": 0,
+                        "description": "N/A"
+                    },
+                    "addr1": {
+                        "holding_input_register": 1,
+                        "description": "N/A"
+                    },
+                    "addr2": {
+                        "holding_input_register": 2,
+                        "description": "N/A"
+                    },
+                    "addr3": {
+                        "holding_input_register": 3,
+                        "description": "N/A"
+                    },
+                    "addr4": {
+                        "holding_input_register": 4,
+                        "description": "N/A"
+                    },
+                    "addr5": {
+                        "holding_input_register": 5,
+                        "description": "N/A"
+                    },
+                    "addr6": {
+                        "holding_input_register": 6,
+                        "description": "N/A"
+                    }
+                }
+            },
+            "analog_outputs": {
+                "address": {
+                    "addr0": {
+                        "holding_register": 0,
+                        "description": "N/A"
+                    },
+                    "addr1": {
+                        "holding_register": 1,
+                        "description": "N/A"
+                    },
+                    "addr2": {
+                        "holding_register": 2,
+                        "description": "N/A"
+                    },
+                    "addr3": {
+                        "holding_register": 3,
+                        "description": "N/A"
+                    },
+                    "addr4": {
+                        "holding_register": 4,
+                        "description": "N/A"
+                    },
+                    "addr5": {
+                        "holding_register": 5,
+                        "description": "N/A"
+                    },
+                    "addr6": {
+                        "holding_register": 6,
+                        "description": "N/A"
+                    }
+                }
+            }
+        }
+    }
+}

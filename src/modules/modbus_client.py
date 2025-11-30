@@ -43,7 +43,6 @@ class ModbusClientWrapper:
     def read_discrete_inputs(self, address: int, count: int) -> Optional[List[bool]]:
         """Lê DISCRETE INPUTS"""
         try:
-            print(f"Reading discrete inputs from address {address} count {count}")
             with self._lock:
                 return self.client.read_discrete_inputs(address, count)
         except Exception as e:
