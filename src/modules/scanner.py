@@ -67,9 +67,9 @@ class MPScanner:
 
             """ 
             Adiciono client ao dict de clients no formato
-                'source': ModbusClientWrapper(...),
+                'source':   ModbusClientWrapper(...),
                 'conveyor': ModbusClientWrapper(...),
-                'deposit': ModbusClientWrapper(...),
+                'deposit':  ModbusClientWrapper(...),
                 'ur_robot': ModbusClientWrapper(...)
             """
             self.clients[key] = client
@@ -95,10 +95,50 @@ class MPScanner:
 
         # Inicializa monitor de bordas (exemplo para entradas digitais)
         self.di_mapping = config_manager.config["modbus_mapping"]["digital_inputs"]
+
+        # Passa também o dicionário de clients e uma função que lê as DI por cliente
         self.edge_monitor = EdgeMonitor(
-            mapping=self.di_mapping, read_snapshot=self._read_di_snapshot
+            mapping=self.di_mapping,
+            read_snapshot=self._read_di_snapshot,
+            clients=self.clients,
+            client_read_fn=self._client_read_di_snapshot,
+            client_poll_interval=self.config_manager.get(
+                "scan.client_poll_interval", 0.1
+            ),
         )
         self.edge_monitor.start()
+
+    def _client_read_di_snapshot(self, client_key: str, client) -> Dict[int, bool]:
+        """Lê as entradas digitais específicas de um cliente e retorna dict addr->bool.
+
+        Usado pelo EdgeMonitor quando é solicitado polling por cliente.
+        """
+        svc = self.service_title_map.get(client_key, client_key)
+        try:
+            cfg = self.config_manager.config[svc]["modbus_mapping"]["digital_inputs"]
+        except Exception:
+            cfg = self.config_manager.config.get("modbus_mapping", {}).get(
+                "digital_inputs"
+            )
+            if not cfg:
+                self.logger.debug(f"Configuração digital_inputs ausente para {svc}")
+                return {}
+
+        try:
+            values = client.read_coils(cfg["start_address"], cfg["count"])
+        except Exception as e:
+            self.logger.exception(
+                f"Erro lendo coils de {client_key} (client mode): {e}"
+            )
+            return {}
+
+        if not values:
+            return {}
+
+        return {
+            cfg["start_address"] + i: bool(values[i])
+            for i in range(min(cfg["count"], len(values)))
+        }
 
     def test_connection(self) -> bool:
         """Testa conectividade com todos os clientes configurados.
@@ -112,12 +152,12 @@ class MPScanner:
             self.logger.error("Nenhum cliente Modbus configurado para testar.")
             return False
 
-        '''
+        """
         Para cada cliente em clients, tenta testar a conexão.
 
         name = chave do dict (ex: 'source', 'conveyor', etc)
         client = instância ModbusClientWrapper correspondente
-        '''
+        """
         for name, client in self.clients.items():
             try:
                 ok = client.test_connection()
@@ -140,7 +180,7 @@ class MPScanner:
 
     def scan_all_ios(self) -> bool:
         """Executa escaneamento completo"""
-        os.system('cls' if os.name == 'nt' else 'clear')
+        os.system("cls" if os.name == "nt" else "clear")
         print("\n🔍 INICIANDO ESCANEAMENTO COMPLETO...")
 
         # Se a conexão falhar, aborta o escaneamento
@@ -171,15 +211,21 @@ class MPScanner:
         for client_key, client in self.clients.items():
             svc = self.service_title_map.get(client_key, client_key)
             try:
-                cfg = self.config_manager.config[svc]["modbus_mapping"]["digital_inputs"]
+                cfg = self.config_manager.config[svc]["modbus_mapping"][
+                    "digital_inputs"
+                ]
             except Exception:
-                cfg = self.config_manager.config.get("modbus_mapping", {}).get("digital_inputs")
+                cfg = self.config_manager.config.get("modbus_mapping", {}).get(
+                    "digital_inputs"
+                )
                 if not cfg:
                     self.logger.debug(f"Configuração digital_inputs ausente para {svc}")
                     continue
 
             try:
-                discretes = client.read_discrete_inputs(cfg["start_address"], cfg["count"])
+                discretes = client.read_discrete_inputs(
+                    cfg["start_address"], cfg["count"]
+                )
             except Exception as e:
                 self.logger.exception(f"Erro lendo coils de {client_key}: {e}")
                 continue
@@ -233,13 +279,9 @@ class MPScanner:
                     continue
 
             try:
-                coils = client.read_coils(
-                    cfg["start_address"], cfg["count"]
-                )
+                coils = client.read_coils(cfg["start_address"], cfg["count"])
             except Exception as e:
-                self.logger.exception(
-                    f"Erro lendo coils de {client_key}: {e}"
-                )
+                self.logger.exception(f"Erro lendo coils de {client_key}: {e}")
                 continue
 
             if not coils:

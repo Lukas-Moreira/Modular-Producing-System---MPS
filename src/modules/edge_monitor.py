@@ -1,42 +1,43 @@
 """Edge detection helper for Modbus digital inputs.
 
-    Fornece uma pequena classe `EdgeMonitor` que pode:
-    - Aceitar um dicionário de mapeamento (com `start_address` e `count`) ou uma lista explícita de endereços.
-    - Manter o estado anterior para cada endereço e detetar bordas ascendentes/descendentes.
-    - Chamar callbacks registados quando uma borda é detetada.
-    - Processar instantâneos (um dicionário endereço->bool) para que possa ser integrado com qualquer loop de leitura Modbus.
+Fornece uma pequena classe `EdgeMonitor` que pode:
+- Aceitar um dicionário de mapeamento (com `start_address` e `count`) ou uma lista explícita de endereços.
+- Manter o estado anterior para cada endereço e detetar bordas ascendentes/descendentes.
+- Chamar callbacks registados quando uma borda é detetada.
+- Processar instantâneos (um dicionário endereço->bool) para que possa ser integrado com qualquer loop de leitura Modbus.
 
-    Exemplo de utilização:
+Exemplo de utilização:
 
-        from src.modules.edge_handler import EdgeMonitor
+    from src.modules.edge_handler import EdgeMonitor
 
-        # exemplo de mapeamento (proveniente de config.cfg.get(‘modbus_mapping.digital_inputs’))
-        mapping = {“start_address”: 0, “count”: 8}
+    # exemplo de mapeamento (proveniente de config.cfg.get(‘modbus_mapping.digital_inputs’))
+    mapping = {“start_address”: 0, “count”: 8}
 
-        # assinatura de retorno de chamada: fn(endereço: int, borda: str, antigo: bool, novo: bool)
-        def on_edge(addr, edge, old, new):
-            print(f“Borda em {addr}: {edge} ({old} -> {new})”)
+    # assinatura de retorno de chamada: fn(endereço: int, borda: str, antigo: bool, novo: bool)
+    def on_edge(addr, edge, old, new):
+        print(f“Borda em {addr}: {edge} ({old} -> {new})”)
 
-        monitor = EdgeMonitor(mapping=mapping)
-        monitor.register_callback (on_edge)
+    monitor = EdgeMonitor(mapping=mapping)
+    monitor.register_callback (on_edge)
 
-        # No seu loop de leitura, produza um dicionário de instantâneos: {address: bool}
-        snapshot = {0: False, 1: True, 2: False}
-        monitor.process_snapshot(snapshot)
+    # No seu loop de leitura, produza um dicionário de instantâneos: {address: bool}
+    snapshot = {0: False, 1: True, 2: False}
+    monitor.process_snapshot(snapshot)
 
-    Para o modo de sondagem, crie com `read_snapshot` chamável e chame `start()` / `stop()`.
+Para o modo de sondagem, crie com `read_snapshot` chamável e chame `start()` / `stop()`.
 """
 
 from __future__ import annotations
 
 import threading
 import time
-from typing import Callable, Dict, Iterable, List, Optional, overload
+from typing import Any, Callable, Dict, Iterable, List, Optional, overload
 import logging
 
 from services.enums import Verbose
 
 logger = logging.getLogger(__name__)
+
 
 def mapping_to_addresses(mapping: Dict, verbose: Optional[Verbose] = None) -> List[int]:
     """Converte um mapping com `start_address` e `count` em lista de endereços.
@@ -53,11 +54,12 @@ def mapping_to_addresses(mapping: Dict, verbose: Optional[Verbose] = None) -> Li
 
     if verbose == 2:
         print(f"List_map created: \n {list_map}")
-    
+
     return list_map
 
+
 class EdgeMonitor:
-    """ Classe para detecção de bordas (rising/falling) em endereços digitais.
+    """Classe para detecção de bordas (rising/falling) em endereços digitais.
 
     Este componente permite monitorar mudanças de estado em um conjunto de
     endereços binários (ex.: coils ou discrete inputs Modbus), identificando
@@ -101,11 +103,15 @@ class EdgeMonitor:
         addresses: Optional[Iterable[int]] = None,
         read_snapshot: Optional[Callable[[], Dict[int, bool]]] = None,
         poll_interval: float = 0.1,
+        # opcional: monitoramento por cliente
+        clients: Optional[Dict[str, Any]] = None,
+        client_read_fn: Optional[Callable[[str, Any], Dict[int, bool]]] = None,
+        client_poll_interval: Optional[float] = None,
     ) -> None:
-        
+
         if self.__class__._initialized:
             return
-        
+
         self.__class__._initialized = True
 
         if mapping is not None:
@@ -126,6 +132,18 @@ class EdgeMonitor:
         self.poll_interval = float(poll_interval)
         self._thread: Optional[threading.Thread] = None
         self._running = threading.Event()
+
+        # clients monitoring (paralelo)
+        # clientes: dict chave->client_obj
+        self.clients = clients or {}
+        # função: (client_key, client_obj) -> {address: bool}
+        self.client_read_fn = client_read_fn
+        # por-client threads
+        self._client_threads: Dict[str, threading.Thread] = {}
+        # eventos de controle por cliente (não necessário mas mantido simples)
+        self.client_poll_interval = (
+            float(client_poll_interval) if client_poll_interval else self.poll_interval
+        )
 
     def register_callback(self, cb: Callable[[int, str, bool, bool], None]) -> None:
         """Registra um callback que será chamado em toda borda detectada."""
@@ -180,6 +198,28 @@ class EdgeMonitor:
                 logger.exception("Erro no loop de polling do EdgeMonitor")
             time.sleep(self.poll_interval)
 
+    def _client_poll_loop(self, client_key: str, client_obj: Any) -> None:
+        """Loop de polling dedicado para um cliente específico.
+
+        A função `client_read_fn` deve retornar um dict {address: bool} para
+        aquele cliente. As chaves serão prefixadas com `client_key:` para
+        manter separação entre endereços iguais de diferentes clientes.
+        """
+        if not callable(self.client_read_fn):
+            return
+
+        while self._running.is_set():
+            try:
+                snapshot = self.client_read_fn(client_key, client_obj) or {}
+                # prefixa chaves para distinguir clientes
+                prefixed = {
+                    f"{client_key}:{addr}": bool(val) for addr, val in snapshot.items()
+                }
+                self.process_snapshot(prefixed)
+            except Exception:
+                logger.exception("Erro no loop de polling do cliente %s", client_key)
+            time.sleep(self.client_poll_interval)
+
     def start(self, background: bool = True) -> None:
         """Inicia o monitoramento em loop. Se `read_snapshot` não foi fornecido,
         o loop apenas dorme e não faz leituras.
@@ -187,8 +227,23 @@ class EdgeMonitor:
         if self._thread and self._thread.is_alive():
             return
         self._running.set()
+        # thread global (se houver read_snapshot)
         self._thread = threading.Thread(target=self._poll_loop, daemon=True)
         self._thread.start()
+
+        # iniciar threads por cliente, se fornecidos
+        if self.clients and callable(self.client_read_fn):
+            for key, client in list(self.clients.items()):
+                if key in self._client_threads and self._client_threads[key].is_alive():
+                    continue
+                t = threading.Thread(
+                    target=self._client_poll_loop, args=(key, client), daemon=True
+                )
+                self._client_threads[key] = t
+                t.start()
+        
+        # depois de iniciar as threads por cliente
+        print(f"[EdgeMonitor] global_thread_started={bool(self._thread)} clients_monitors={len(self._client_threads)}")
 
     def stop(self) -> None:
         """Para o loop de polling (se estiver rodando)."""
@@ -196,11 +251,15 @@ class EdgeMonitor:
         if self._thread:
             self._thread.join(timeout=1.0)
             self._thread = None
+        # terminar threads dos clientes
+        for key, t in list(self._client_threads.items()):
+            if t and t.is_alive():
+                t.join(timeout=1.0)
+        self._client_threads.clear()
 
-    
     @classmethod
     def is_initialized(cls):
-        return getattr(cls,"_initialized",False)
+        return getattr(cls, "_initialized", False)
 
 
 __all__ = ["EdgeMonitor", "mapping_to_addresses"]
