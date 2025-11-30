@@ -7,6 +7,7 @@ from typing import Dict, List, Optional
 from modules.edge_monitor import EdgeMonitor
 from modules.config import ConfigurationManager
 from modules.modbus_client import ModbusClientWrapper
+from modules.client_io_state import ClientIOStateManager
 
 
 class MPScanner:
@@ -85,6 +86,14 @@ class MPScanner:
 
             # Mantém compatibilidade com código que espera atributos individuais
             setattr(self, f"{key}_modbus_client", client)
+            # mapear título/section do config para serviço (usado em leituras por cliente)
+            self.service_title_map[key] = svc
+
+            # criar/obter estados singleton para este cliente (inputs/outputs)
+            state = ClientIOStateManager.get_state(key)
+            print(
+                f"[MPScanner] created state for {key} -> inputs={state.get_inputs_snapshot()} outputs={state.get_outputs_snapshot()}"
+            )
 
         # Estruturas de dados
         self.io_data: List[Dict] = []
@@ -92,6 +101,53 @@ class MPScanner:
 
         # Carrega descrições personalizadas
         self._load_custom_descriptions()
+
+        # Inicializa as listas de inputs/outputs por cliente com formato estruturado
+        # (addr, state, description) usando o mapeamento de configuração e descrições
+        for client_key in list(self.clients.keys()):
+            svc = self.service_title_map.get(client_key, client_key)
+            # digital inputs
+            try:
+                di_cfg = self.config_manager.config[svc]["modbus_mapping"][
+                    "digital_inputs"
+                ]
+            except Exception:
+                di_cfg = self.config_manager.config.get("modbus_mapping", {}).get(
+                    "digital_inputs"
+                )
+
+            if di_cfg:
+                start = int(di_cfg.get("start_address", 0))
+                count = int(di_cfg.get("count", 0))
+                addrs = [start + i for i in range(count)]
+                # montar descrições por endereco: procura por chave 'clientkey_DI_{addr:02d}'
+                desc_map = {}
+                for a in addrs:
+                    key = f"{client_key}_DI_{a:02d}"
+                    desc_map[a] = self.custom_descriptions.get(key, "")
+                state = ClientIOStateManager.get_state(client_key)
+                state.initialize_inputs(addrs, desc_map)
+
+            # digital outputs
+            try:
+                do_cfg = self.config_manager.config[svc]["modbus_mapping"][
+                    "digital_outputs"
+                ]
+            except Exception:
+                do_cfg = self.config_manager.config.get("modbus_mapping", {}).get(
+                    "digital_outputs"
+                )
+
+            if do_cfg:
+                start = int(do_cfg.get("start_address", 0))
+                count = int(do_cfg.get("count", 0))
+                addrs = [start + i for i in range(count)]
+                desc_map = {}
+                for a in addrs:
+                    key = f"{client_key}_DO_{a:02d}"
+                    desc_map[a] = self.custom_descriptions.get(key, "")
+                state = ClientIOStateManager.get_state(client_key)
+                state.initialize_outputs(addrs, desc_map)
 
         # Inicializa monitor de bordas (exemplo para entradas digitais)
         self.di_mapping = config_manager.config["modbus_mapping"]["digital_inputs"]
@@ -107,6 +163,30 @@ class MPScanner:
             ),
         )
         self.edge_monitor.start()
+
+        # registrar callback que atualiza apenas as listas de entradas por cliente
+        self.edge_monitor.register_callback(self._on_edge_event)
+
+    def _on_edge_event(self, addr, edge, old, new):
+        """Callback registrado no EdgeMonitor: atualiza o ClientIOState correspondente.
+
+        Espera `addr` no formato "client_key:address" quando o EdgeMonitor estiver
+        rodando em modo por-client. Se `addr` for int, ignora (global snapshot mode).
+        """
+        # somente atualizamos quando recebemos eventos por cliente (formatado)
+        if isinstance(addr, str) and ":" in addr:
+            client_key, raw_addr = addr.split(":", 1)
+            try:
+                address = int(raw_addr)
+            except ValueError:
+                return
+
+            state = ClientIOStateManager.get_state(client_key)
+            # apenas EdgeMonitor usa esta API para atualizar inputs
+            state.set_input(address, new)
+            print(
+                f"[EdgeEvent] {client_key} addr={address} edge={edge} -> inputs={state.get_inputs_snapshot()}"
+            )
 
     def _client_read_di_snapshot(self, client_key: str, client) -> Dict[int, bool]:
         """Lê as entradas digitais específicas de um cliente e retorna dict addr->bool.
