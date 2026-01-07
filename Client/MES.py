@@ -1,6 +1,8 @@
+import time
 import asyncio
 import Utils.logger as loggerManager
 
+from Maps.Mapping import *
 from typing import Optional
 from States.PLCState import PLC
 from dataclasses import dataclass
@@ -57,4 +59,18 @@ class MES:
         except KeyError:
             raise KeyError(f"PLC '{name}' não encontrado no MES.")
         
-    
+    def fluxo_first_plc(self):
+        
+        self.clients['MPS_HANDLING'].client.write_single_register(8, 1)
+
+
+        self.clients['MPS_HANDLING'].client.write_single_register(holding_register_handling_plc.MB_M0_DIR_CAN, 0)
+        self.clients['MPS_HANDLING'].client.write_single_register(holding_register_handling_plc.MB_M0_ESQ_CAN, 0)
+        print("braço desligado!")
+        self.clients['MPS_HANDLING'].client.write_single_register(holding_register_handling_plc.MB_M0_ESQ_CAN, 1)
+
+        time.sleep(2)
+
+        self.clients['MPS_HANDLING'].client.write_single_register(holding_register_handling_plc.MB_M0_ESQ_CAN, 0)
+        # self.clients[0].client.write_single_coil(self.clients[0])
+        pass
