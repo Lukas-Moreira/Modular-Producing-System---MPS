@@ -1,0 +1,162 @@
+{
+    "MPS_HANDLING":{
+        "connection": {
+            "host": "127.0.0.1",
+            "port": 502,
+            "timeout": 10.0,
+            "auto_open": true,
+            "auto_close": true
+        },
+        "modbus_mapping": {
+            "inputs": {
+                "count": 20,
+                "start_address": 0,
+                "register_type": "Holding_REGISTER",
+                "description": "Botões e Sensores"
+            },
+            "outputs": {
+                "count": 29,
+                "start_address": 0,
+                "register_type": "Input_REGISTER",
+                "description": "Motores, Luzes e Válvulas"
+            }
+        },
+        "holding_registers": {
+            "MB_RemoteEnable_W": 14,
+            "MB_Running":        15,
+            "MB_Stopped":        16,
+            "MB_Emergency":      17,
+            "MB_Start_W":        18,
+            "MB_Stop_W":         19,
+            "MB_Reset_W":        20,
+            "MB_Auto_W":         21,
+
+            "MB_L_VD_CAN":       22,
+            "MB_L_AM_CAN":       23,
+            "MB_L_VM_CAN":       24,
+            "MB_L_START":        25,
+            "MB_L_RESET":        26,
+            "MB_Q1":             27,
+            "MB_Q2":             28,
+            "MB_M0_ESQ_CAN":     29,
+            "MB_M0_DIR_CAN":     30,
+            "MB_A1_CAN":         31,
+            "MB_A2_CAN":         32,
+            "MB_A3_CAN":         33
+        },
+        "input_registers": {
+            "MB_PART_AV_CAN":    11,
+            "MB_1B1_CAN":        12,
+            "MB_1B2_CAN":        13,
+            "MB_1B3_CAN":        14,
+            "MB_2B1_CAN":        15,
+            "MB_2B2_CAN":        16,
+            "MB_3B1_CAN":        17,
+            "MB_IP_FI_CAN":      18
+        }
+    },
+    "MPS_Pressing":{
+        "connection": {
+            "host": "192.168.0.32",
+            "port": 502,
+            "timeout": 5.0,
+            "auto_open": true,
+            "auto_close": true
+        },
+        "modbus_mapping": {
+            "inputs": {
+                "count": 20,
+                "start_address": 0,
+                "register_type": "Holding_REGISTER",
+                "description": "Botões e Sensores"
+            },
+            "outputs": {
+                "count": 29,
+                "start_address": 0,
+                "register_type": "Input_REGISTER",
+                "description": "Motores, Luzes e Válvulas"
+            }
+        },
+        "holding_registers": {
+            "MB_Start_W": 6,
+            "MB_L_START": 7,
+            "MB_L_RESET": 8,
+            "MB_Q1": 9,
+            "MB_Q2": 10,
+            "MB_M0": 11,
+            "MB_A0": 12,
+            "MB_A1": 13,
+            "MB_A2": 14,
+            "MB_A3": 15,
+            "MB_A4": 16
+        },
+        "input_registers": {
+            "MB_PART_AV": 3,
+            "MB_1B1": 4,
+            "MB_1B2": 5,
+            "MB_2B1": 6,
+            "MB_3B1": 7,
+            "MB_4B1": 8,
+            "MB_5B1": 9,
+            "MB_5B2": 10,
+            "MB_B_START": 11,
+            "MB_B_STOP": 12,
+            "MB_CH_AT_MAN": 13,
+            "MB_B_RESET": 14
+        }
+    },
+    "MPS_PickPlace":{
+        "connection": {
+            "host": "192.168.0.33",
+            "port": 502,
+            "timeout": 5.0,
+            "auto_open": true,
+            "auto_close": true
+        },
+        "modbus_mapping": {
+            "inputs": {
+                "count": 20,
+                "start_address": 0,
+                "register_type": "Holding_REGISTER",
+                "description": "Botões e Sensores"
+            },
+            "outputs": {
+                "count": 29,
+                "start_address": 0,
+                "register_type": "Input_REGISTER",
+                "description": "Motores, Luzes e Válvulas"
+            }
+        },
+        "holding_registers": {
+            "MB_Start_W": 6,
+            "MB_L_START": 7,
+            "MB_L_RESET": 8,
+            "MB_Q1": 9,
+            "MB_Q2": 10,
+            "MB_M0": 11,
+            "MB_A0": 12,
+            "MB_A1": 13,
+            "MB_A2": 14,
+            "MB_A3": 15,
+            "MB_A4": 16
+        },
+        "input_registers": {
+            "MB_PART_AV": 3,
+            "MB_1B1": 4,
+            "MB_1B2": 5,
+            "MB_2B1": 6,
+            "MB_3B1": 7,
+            "MB_4B1": 8,
+            "MB_5B1": 9,
+            "MB_5B2": 10,
+            "MB_B_START": 11,
+            "MB_B_STOP": 12,
+            "MB_CH_AT_MAN": 13,
+            "MB_B_RESET": 14
+        }
+    },
+    "scan": {
+        "debounce_count": 1,
+        "client_poll_interval": 0.25
+    }
+}

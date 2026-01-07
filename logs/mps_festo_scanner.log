@@ -1,0 +1,51 @@
+2025-12-26 11:35:10,511 - MPS_PickPlace - INFO - Encerrando aplicação...
+2025-12-26 11:35:11,921 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Lucas\Downloads\Modbus1\Modbus\config.json
+2025-12-26 11:35:11,922 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2025-12-26 11:35:11,923 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2025-12-26 11:35:11,933 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 127.0.0.1:502
+2025-12-26 11:35:11,933 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2025-12-26 11:35:16,940 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2025-12-26 11:35:16,940 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2025-12-26 11:35:21,956 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2025-12-26 11:35:21,957 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2025-12-26 11:36:54,785 - MPS_PickPlace - INFO - Encerrando aplicação...
+2025-12-26 11:37:44,919 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Lucas\Downloads\Modbus1\Modbus\config.json
+2025-12-26 11:37:44,919 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2025-12-26 11:37:44,920 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2025-12-26 11:37:44,931 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 127.0.0.1:502
+2025-12-26 11:37:44,931 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2025-12-26 11:37:49,944 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2025-12-26 11:37:49,944 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2025-12-26 11:37:54,958 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2025-12-26 11:37:54,959 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2025-12-26 11:37:54,959 - MPS_PickPlace - INFO - Encerrando aplicação...
+2025-12-26 11:43:56,620 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Lucas\Downloads\Modbus1\Modbus\config.json
+2025-12-26 11:43:56,620 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2025-12-26 11:43:56,621 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2025-12-26 11:43:56,625 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 127.0.0.1:502
+2025-12-26 11:43:56,625 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2025-12-26 11:44:01,633 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2025-12-26 11:44:01,634 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2025-12-26 11:44:06,641 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2025-12-26 11:44:06,641 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2025-12-26 11:44:43,132 - MPS_PickPlace - INFO - Encerrando aplicação...
+2025-12-26 11:57:02,231 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Lucas\Downloads\Modbus1\Modbus\config.json
+2025-12-26 11:57:02,232 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2025-12-26 11:57:02,235 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2025-12-26 11:57:02,242 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 127.0.0.1:502
+2025-12-26 11:57:02,242 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2025-12-26 11:57:07,253 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2025-12-26 11:57:07,253 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2025-12-26 11:57:12,258 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2025-12-26 11:57:12,259 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2025-12-26 11:57:22,297 - MPS_PickPlace - INFO - Encerrando aplicação...
+2025-12-26 11:58:40,990 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Lucas\Downloads\Modbus1\Modbus\config.json
+2025-12-26 11:58:40,990 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2025-12-26 11:58:40,990 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2025-12-26 11:58:40,993 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 127.0.0.1:502
+2025-12-26 11:58:40,993 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2025-12-26 11:58:45,999 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2025-12-26 11:58:45,999 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2025-12-26 11:58:51,015 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2025-12-26 11:58:51,015 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2025-12-26 11:58:51,016 - MPS_PickPlace - INFO - Encerrando aplicação...
