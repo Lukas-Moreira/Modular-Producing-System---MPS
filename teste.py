@@ -12,7 +12,7 @@ while True:
         client = ModbusTcpClient(IP, port=PORTA, timeout=3)
         
         if client.connect():
-            print("✓ Conectado com sucesso!")
+            print("Conectado com sucesso!")
             
             resultado = client.write_register(address=0,value=0, slave=0)
             # resultado = client.read_input_registers(address=3,slave=0)
