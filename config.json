@@ -1,8 +1,8 @@
 {
     "MPS_HANDLING":{
         "connection": {
-            "host": "127.0.0.1",
-            "port": 502,
+            "host": "192.168.0.31",
+            "port": 504,
             "timeout": 10.0,
             "auto_open": true,
             "auto_close": true
