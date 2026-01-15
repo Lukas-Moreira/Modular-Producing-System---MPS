@@ -23,6 +23,8 @@ class MPS:
             clp_config = cfg.config_clps[clp]['connection']
             clp_holding_registers = cfg.config_clps[clp]['holding_registers']
 
+        
+
             try:
                 modbus_client = ModbusClientWrapper(
                     host=clp_config['host'],
@@ -36,6 +38,7 @@ class MPS:
                     self.modbus_clients[clp] = modbus_client
             
             except Exception as e:
+                print(e)
                 self.logger.set_level("ERROR")
                 self.logger.logger.error(f"Erro ao iniciar cliente para {clp}: {e}")
         
@@ -43,4 +46,5 @@ class MPS:
             self.logger.logger.info(f"Todos os clientes Modbus inicializados: {list(self.modbus_clients.keys())}")
         except Exception as e:
             self.logger.set_level("ERROR")
+            print(e)
             self.logger.logger.error(f"Erro ao listar clientes Modbus: {e}")
