@@ -49,3 +49,857 @@
 2025-12-26 11:58:51,015 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
 2025-12-26 11:58:51,015 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
 2025-12-26 11:58:51,016 - MPS_PickPlace - INFO - Encerrando aplicação...
+2026-01-12 16:32:05,498 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 16:32:05,500 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 16:32:05,503 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 16:32:05,533 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 16:32:05,533 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 16:32:10,548 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 16:32:10,548 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 16:32:12,601 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 16:32:12,601 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 16:32:12,602 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 16:33:14,967 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 16:33:14,968 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 16:33:14,969 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 16:33:14,988 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 16:33:14,989 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 16:33:19,991 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 16:33:19,991 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 16:33:22,048 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 16:33:22,048 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 16:33:24,137 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 17:10:30,050 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 17:10:30,063 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 17:10:30,065 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 17:10:30,085 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 17:10:30,085 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 17:10:35,094 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 17:10:35,094 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 17:10:37,149 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 17:10:37,149 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 17:10:37,151 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 17:11:00,555 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 17:11:00,556 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 17:11:00,557 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 17:11:00,579 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 17:11:00,579 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 17:11:05,592 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 17:11:05,592 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 17:11:07,636 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 17:11:07,637 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 17:11:09,746 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 17:12:20,288 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 17:12:20,289 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 17:12:20,290 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 17:12:20,296 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 17:12:20,296 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 17:12:25,308 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 17:12:25,308 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 17:12:27,347 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 17:12:27,347 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 17:12:29,505 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 17:16:25,071 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 17:16:25,072 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 17:16:25,073 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 17:16:25,097 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 17:16:25,098 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 17:16:30,102 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 17:16:30,102 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 17:16:32,137 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 17:16:32,137 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 17:18:04,449 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 17:18:04,450 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 17:18:04,451 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 17:18:04,482 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 17:18:04,482 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 17:18:09,490 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 17:18:09,490 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 17:18:11,536 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 17:18:11,537 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 17:30:43,964 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 17:30:43,964 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 17:30:43,966 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 17:30:43,972 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 17:30:43,972 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 17:30:48,975 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 17:30:48,975 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 17:30:51,028 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 17:30:51,029 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 17:48:42,526 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 17:48:42,527 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 17:48:42,528 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 17:48:42,552 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 17:48:42,552 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 17:48:47,563 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 17:48:47,563 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 17:48:49,619 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 17:48:49,619 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 17:48:59,815 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 17:51:52,219 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 17:51:52,219 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 17:51:52,221 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 17:51:52,250 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 17:51:52,250 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 17:51:57,264 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 17:51:57,264 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 17:51:59,310 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 17:51:59,311 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 17:52:19,674 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 17:53:18,808 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 17:53:18,808 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 17:53:18,809 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 17:53:18,840 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 17:53:18,840 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 17:53:23,846 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 17:53:23,846 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 17:53:25,900 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 17:53:25,900 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 17:53:46,153 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 17:53:50,548 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 17:53:50,548 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 17:53:50,549 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 17:53:50,578 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 17:53:50,578 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 17:53:55,582 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 17:53:55,582 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 17:53:57,634 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 17:53:57,635 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 17:54:17,934 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 17:55:19,009 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 17:55:19,009 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 17:55:19,010 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 17:55:19,030 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 17:55:19,030 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 17:55:24,034 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 17:55:24,034 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 17:55:26,085 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 17:55:26,086 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 17:55:41,274 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 17:57:46,637 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 17:57:46,637 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 17:57:46,639 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 17:57:46,643 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 17:57:46,644 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 17:57:51,651 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 17:57:51,652 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 17:57:53,707 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 17:57:53,708 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 17:58:20,812 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 17:59:38,454 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 17:59:38,455 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 17:59:38,456 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 17:59:38,484 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 17:59:38,484 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 17:59:43,491 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 17:59:43,492 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 17:59:45,542 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 17:59:45,543 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:00:02,512 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 18:00:40,273 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:00:40,274 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:00:40,275 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:00:40,296 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:00:40,296 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:00:45,309 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 18:00:45,310 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 18:00:47,358 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 18:00:47,358 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:00:56,352 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 18:04:21,278 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:04:21,279 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:04:21,281 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:04:21,303 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:04:21,303 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:04:26,309 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 18:04:26,309 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 18:04:28,359 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 18:04:28,359 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:04:43,010 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 18:06:01,865 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:06:01,865 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:06:01,867 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:06:01,895 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:06:01,895 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:06:06,908 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 18:06:06,908 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 18:06:08,958 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 18:06:08,958 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:06:09,030 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 18:06:45,362 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:06:45,362 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:06:45,364 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:06:45,368 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:06:45,369 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:06:50,385 - MPS_Pressing - INFO - Encerrando aplicação...
+2026-01-12 18:07:25,243 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:07:25,243 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:07:25,245 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:07:25,266 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:07:25,266 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:07:30,273 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 18:07:30,274 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 18:07:32,328 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 18:07:32,328 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:07:44,010 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 18:11:38,919 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:11:38,920 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:11:38,922 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:11:38,932 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:11:38,932 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:11:43,937 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 18:11:43,937 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 18:11:45,992 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 18:11:45,992 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:12:05,909 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 18:16:23,032 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:16:23,033 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:16:23,034 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:16:23,055 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:16:23,055 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:16:44,594 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:16:44,595 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:16:44,596 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:16:44,626 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:16:44,626 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:16:49,634 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 18:16:49,634 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 18:16:51,699 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 18:16:51,699 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:17:04,547 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 18:18:24,557 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:18:24,558 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:18:24,559 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:18:24,583 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:18:24,583 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:18:29,584 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 18:18:29,584 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 18:18:31,638 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 18:18:31,638 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:18:31,706 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 18:18:51,595 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:18:51,596 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:18:51,596 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:18:51,621 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:18:51,621 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:18:56,636 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 18:18:56,636 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 18:18:58,682 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 18:18:58,683 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:18:58,746 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 18:19:12,589 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:19:12,590 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:19:12,591 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:19:12,620 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:19:12,620 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:19:17,625 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 18:19:17,625 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 18:19:19,672 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 18:19:19,672 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:19:19,746 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 18:19:38,778 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:19:38,778 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:19:38,779 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:19:38,811 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:19:38,811 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:19:43,825 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 18:19:43,825 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 18:19:45,880 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 18:19:45,881 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:19:53,975 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 18:22:52,643 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:22:52,643 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:22:52,644 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:22:52,667 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:22:52,667 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:22:57,681 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 18:22:57,681 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 18:22:59,734 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 18:22:59,734 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:23:07,838 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 18:24:22,718 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:24:22,719 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:24:22,720 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:24:22,743 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:24:22,743 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:24:27,755 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 18:24:27,755 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 18:24:29,811 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 18:24:29,812 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:24:37,907 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 18:24:52,798 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:24:52,799 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:24:52,800 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:24:52,805 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:24:52,805 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:24:57,815 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 18:24:57,815 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 18:24:59,887 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 18:24:59,887 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:25:16,696 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-12 18:25:45,279 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-12 18:25:45,279 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-12 18:25:45,280 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-12 18:25:45,300 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-12 18:25:45,300 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-12 18:25:50,302 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-12 18:25:50,302 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-12 18:25:52,343 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-12 18:25:52,344 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-12 18:37:24,270 - MES of MPS - INFO - Encerrando aplicação...
+2026-01-13 11:02:20,775 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 11:02:20,776 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 11:02:20,781 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 11:02:30,802 - MPS_HANDLING - WARNING - Conexão não estabelecida para 192.168.0.31:502.
+2026-01-13 11:02:30,803 - MPS_HANDLING - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 11:02:35,811 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 11:02:35,811 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 11:02:40,818 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 11:02:40,818 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: []
+2026-01-13 11:02:40,819 - MES of MPS - ERROR - MES inicializado sem clientes Modbus.
+2026-01-13 11:06:44,471 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 11:06:44,472 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 11:06:44,949 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 11:06:54,973 - MPS_HANDLING - WARNING - Conexão não estabelecida para 192.168.0.31:502.
+2026-01-13 11:06:54,973 - MPS_HANDLING - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 11:06:59,981 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 11:06:59,981 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 11:07:04,995 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 11:07:04,995 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: []
+2026-01-13 11:07:04,996 - MES of MPS - ERROR - MES inicializado sem clientes Modbus.
+2026-01-13 11:32:57,228 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 11:32:57,246 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 11:32:58,912 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 11:33:08,946 - MPS_HANDLING - WARNING - Conexão não estabelecida para 192.168.0.31:502.
+2026-01-13 11:33:08,947 - MPS_HANDLING - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 11:33:13,963 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 11:33:13,963 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 11:33:18,970 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 11:33:18,970 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: []
+2026-01-13 11:33:18,971 - MES of MPS - ERROR - MES inicializado sem clientes Modbus.
+2026-01-13 14:15:10,931 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 14:15:10,933 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 14:15:11,750 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 14:15:11,763 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 14:15:11,763 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 14:15:13,810 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 14:15:13,810 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 14:15:18,813 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 14:15:18,813 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-13 14:16:08,251 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 14:16:08,252 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 14:16:08,814 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 14:16:08,839 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 14:16:08,839 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 14:16:10,884 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 14:16:10,884 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 14:16:15,900 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 14:16:15,900 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-13 14:16:56,253 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 14:16:56,253 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 14:16:56,682 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 14:16:56,688 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 14:16:56,688 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 14:16:58,732 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 14:16:58,732 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 14:17:03,746 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 14:17:03,746 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-13 14:19:14,261 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 14:19:14,262 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 14:19:14,680 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 14:19:14,688 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 14:19:14,688 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 14:19:16,733 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 14:19:16,733 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 14:19:21,750 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 14:19:21,751 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-13 14:25:00,576 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 14:25:00,577 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 14:25:01,120 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 14:25:01,128 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 14:25:01,128 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 14:25:03,182 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 14:25:03,182 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 14:25:15,190 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 14:25:15,190 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 14:25:15,674 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 14:25:15,698 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 14:25:15,698 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 14:25:17,756 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 14:25:17,756 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 14:25:22,757 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 14:25:22,757 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-13 14:26:46,270 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 14:26:46,271 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 14:26:46,724 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 14:26:46,730 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 14:26:46,730 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 14:26:48,790 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 14:26:48,790 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 14:26:53,802 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 14:26:53,802 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-13 14:27:42,010 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 14:27:42,011 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 14:27:42,483 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 14:27:42,491 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 14:27:42,492 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 14:27:44,539 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 14:27:44,539 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 14:27:49,547 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 14:27:49,547 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-13 14:28:48,445 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 14:28:48,446 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 14:28:48,891 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 14:28:48,915 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 14:28:48,915 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 14:28:50,955 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 14:28:50,955 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 14:28:55,968 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 14:28:55,968 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-13 15:07:44,117 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:07:44,117 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:07:44,558 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:07:44,567 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:07:44,567 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:07:44,570 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 15:07:44,570 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:07:49,584 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:07:49,584 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 15:08:55,474 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:08:55,474 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:08:55,927 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:08:55,937 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:08:55,938 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:08:55,941 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 15:08:55,941 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:09:00,955 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:09:00,955 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 15:09:34,772 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:09:34,776 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:09:36,037 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:09:36,067 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:09:36,067 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:09:36,080 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 15:09:36,081 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:09:41,098 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:09:41,099 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 15:10:46,587 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:10:46,587 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:10:47,091 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:10:47,104 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:10:47,104 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:10:47,106 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 15:10:47,107 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:10:52,114 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:10:52,114 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 15:10:59,152 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:10:59,152 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:10:59,573 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:10:59,578 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:10:59,578 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:10:59,580 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 15:10:59,580 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:11:04,586 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:11:04,586 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 15:12:17,969 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:12:17,969 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:12:18,413 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:12:18,419 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:12:18,419 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:12:18,422 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 15:12:18,422 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:12:23,427 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:12:23,427 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 15:15:04,458 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:15:04,458 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:15:05,022 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:15:05,029 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:15:05,029 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:15:05,032 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 15:15:05,032 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:15:10,033 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:15:10,033 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 15:18:45,010 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:18:45,010 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:18:45,515 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:18:45,555 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:18:45,555 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:18:45,558 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 15:18:45,558 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:18:50,562 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:18:50,562 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 15:19:08,672 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:19:08,672 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:19:09,090 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:19:09,096 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:19:09,096 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:19:09,098 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 15:19:09,098 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:19:14,114 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:19:14,114 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 15:21:19,008 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:21:19,009 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:21:19,425 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:21:19,432 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:21:19,432 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:21:19,434 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 15:21:19,435 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:21:24,437 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:21:24,437 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 15:35:01,859 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:35:01,860 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:35:02,409 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:35:02,417 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:35:02,417 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:35:02,421 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 15:35:02,421 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:35:07,434 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:35:07,434 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 15:36:49,878 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:36:49,879 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:36:50,359 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:36:50,371 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:36:50,371 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:36:50,373 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 15:36:50,373 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:36:55,380 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:36:55,380 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 15:38:08,882 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:38:08,882 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:38:09,449 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:38:09,457 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:38:09,457 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:38:11,504 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 15:38:11,504 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:38:16,513 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:38:16,513 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-13 15:50:29,676 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:50:29,676 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:50:30,126 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:50:30,133 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:50:30,133 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:50:32,177 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 15:50:32,387 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:50:37,400 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:50:37,400 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-13 15:51:19,396 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:51:19,398 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:51:19,881 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:51:19,891 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:51:19,891 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:51:19,893 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:503
+2026-01-13 15:51:19,893 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:51:21,934 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:51:21,934 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 15:53:53,422 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 15:53:53,423 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 15:53:53,988 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 15:53:53,997 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 15:53:53,997 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 15:53:56,041 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:503.
+2026-01-13 15:53:56,042 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 15:53:58,101 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 15:53:58,101 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-13 16:15:37,251 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:15:37,253 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:15:37,781 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:15:37,815 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:15:37,826 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:15:37,860 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:15:37,860 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:15:39,916 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:15:39,916 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:17:15,655 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:17:15,656 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:17:16,205 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:17:16,211 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:17:16,211 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:17:16,214 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:17:16,214 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:17:18,254 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:17:18,255 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:17:34,123 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:17:34,123 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:17:34,631 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:17:34,715 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:17:34,716 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:17:34,724 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:17:34,724 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:17:36,800 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:17:36,800 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:18:19,005 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:18:19,006 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:18:19,705 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:18:19,718 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:18:19,718 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:18:19,741 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:18:19,741 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:18:21,810 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:18:21,810 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:19:01,133 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:19:01,134 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:19:01,566 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:19:01,572 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:19:01,573 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:19:01,575 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:19:01,576 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:19:03,628 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:19:03,629 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:19:46,075 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:19:46,075 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:19:46,509 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:19:46,518 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:19:46,518 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:19:46,520 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:19:46,520 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:19:48,563 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:19:48,563 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:23:43,946 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:23:43,947 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:23:44,381 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:23:44,387 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:23:44,388 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:23:44,390 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:23:44,390 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:23:46,435 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:23:46,436 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:24:53,466 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:24:53,467 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:24:54,250 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:24:54,269 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:24:54,269 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:24:54,270 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:24:54,271 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:24:56,357 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:24:56,357 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:26:14,666 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:26:14,666 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:26:15,338 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:26:15,363 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:26:15,363 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:26:15,365 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:26:15,365 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:26:17,404 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:26:17,405 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:26:52,803 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:26:52,803 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:26:53,273 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:26:53,311 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:26:53,311 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:26:53,319 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:26:53,319 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:26:55,376 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:26:55,377 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:28:37,285 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:28:37,286 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:28:37,705 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:28:37,730 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:28:37,730 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:28:37,733 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:28:37,734 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:28:39,771 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:28:39,771 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:29:46,331 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:29:46,331 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:29:46,745 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:29:46,753 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:29:46,753 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:29:46,755 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:29:46,755 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:29:48,791 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:29:48,791 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:31:15,905 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:31:15,906 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:31:16,553 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:31:16,562 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:31:16,562 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:31:16,586 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:31:16,586 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:31:18,632 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:31:18,632 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:31:51,356 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:31:51,356 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:31:51,788 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:31:51,794 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:31:51,794 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:31:51,796 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:31:51,796 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:31:53,852 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:31:53,853 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:34:12,951 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:34:12,952 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:34:13,628 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:34:13,635 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:34:13,636 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:34:13,640 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:34:13,640 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:34:15,677 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:34:15,678 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 16:39:10,586 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 16:39:10,586 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 16:39:11,004 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 16:39:11,028 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 16:39:11,028 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 16:39:11,030 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 16:39:11,030 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 16:39:13,071 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 16:39:13,072 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 17:16:36,718 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:16:36,718 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:16:37,183 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:16:37,190 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 17:16:37,190 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:16:37,193 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 17:16:37,193 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:16:39,256 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:16:39,256 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 17:17:03,816 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:17:03,816 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:17:04,272 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:17:04,279 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 17:17:04,279 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:17:04,280 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 17:17:04,281 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:17:06,342 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:17:06,342 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 17:18:14,040 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:18:14,040 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:18:14,769 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:18:16,824 - MPS_HANDLING - WARNING - Conexão não estabelecida para 192.168.0.31:502.
+2026-01-13 17:18:16,824 - MPS_HANDLING - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:18:16,826 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 17:18:16,826 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:18:18,879 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:18:18,879 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_Pressing']
+2026-01-13 17:21:10,814 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:21:10,814 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:21:11,458 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:21:13,513 - MPS_HANDLING - WARNING - Conexão não estabelecida para 192.168.0.31:502.
+2026-01-13 17:21:13,513 - MPS_HANDLING - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:21:13,515 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 17:21:13,516 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:21:15,555 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:21:15,555 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_Pressing']
+2026-01-13 17:26:31,005 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:26:31,018 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:26:31,471 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:26:31,496 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:503
+2026-01-13 17:26:31,496 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:26:31,505 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 17:26:31,505 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:26:33,568 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:26:33,569 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 17:27:08,464 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:27:08,511 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:27:09,049 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:27:09,076 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:503
+2026-01-13 17:27:09,076 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:27:09,078 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 17:27:09,078 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:27:11,119 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:27:11,119 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 17:27:47,042 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:27:47,043 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:27:47,499 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:27:47,506 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:503
+2026-01-13 17:27:47,506 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:27:47,509 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 17:27:47,509 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:27:49,572 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:27:49,572 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 17:31:22,626 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:31:22,626 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:31:24,065 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:31:24,107 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:503
+2026-01-13 17:31:24,107 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:31:24,109 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 17:31:24,109 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:31:26,143 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:31:26,144 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 17:31:41,011 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:31:41,011 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:31:41,434 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:31:41,441 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:503
+2026-01-13 17:31:41,441 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:31:41,467 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 17:31:41,467 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:31:43,535 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:31:43,535 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 17:33:29,594 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:33:29,595 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:33:30,046 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:33:30,067 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:503
+2026-01-13 17:33:30,067 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:33:30,069 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 17:33:30,069 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:33:32,125 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:33:32,126 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 17:34:15,541 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:34:15,541 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:34:16,170 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:34:16,176 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:503
+2026-01-13 17:34:16,176 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:34:16,178 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 17:34:16,178 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:34:18,226 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:34:18,227 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 17:35:11,583 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:35:11,584 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:35:12,035 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:35:12,064 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 17:35:12,065 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:35:12,067 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 17:35:12,068 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:35:14,121 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:35:14,122 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 17:36:01,441 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:36:01,442 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:36:01,884 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:36:01,892 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 17:36:01,893 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:36:01,894 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 17:36:01,895 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:36:03,954 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:36:03,954 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
+2026-01-13 17:37:33,904 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:37:33,905 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:37:34,304 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:37:34,310 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 17:37:34,310 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:37:39,317 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 17:37:39,317 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:37:44,332 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:37:44,333 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING']
+2026-01-13 17:40:10,291 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:40:10,291 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:40:10,886 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:40:10,914 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 17:40:10,914 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:40:45,458 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:40:45,459 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:40:45,901 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:40:45,937 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 17:40:45,937 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:41:32,435 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:41:32,436 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:41:32,891 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:41:32,919 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:502
+2026-01-13 17:41:32,919 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:41:37,935 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 17:41:37,935 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:46:05,731 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:46:05,743 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:46:06,155 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:46:06,187 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:504
+2026-01-13 17:46:06,187 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:46:11,192 - MPS_Pressing - WARNING - Conexão não estabelecida para 192.168.0.32:502.
+2026-01-13 17:46:11,192 - MPS_Pressing - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:59:20,425 - ConfigurationManager - INFO - Carregando configuração de C:\Users\Thiago Rodrigo\Documents\Personal\01 - studies\02 - mestrado\mps-project\Modular-Producing-System---MPS\config.json
+2026-01-13 17:59:20,425 - ConfigurationManager - INFO - Configuração carregada de dict_keys(['MPS_HANDLING', 'MPS_Pressing', 'MPS_PickPlace', 'scan'])
+2026-01-13 17:59:20,866 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_HANDLING
+2026-01-13 17:59:20,874 - MPS_HANDLING - INFO - Cliente MPS_HANDLING criado no endereço 192.168.0.31:504
+2026-01-13 17:59:20,874 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_Pressing
+2026-01-13 17:59:20,875 - MPS_Pressing - INFO - Cliente MPS_Pressing criado no endereço 192.168.0.32:502
+2026-01-13 17:59:20,876 - MPS_Client - INFO - Iniciando cliente para CLP: MPS_PickPlace
+2026-01-13 17:59:25,882 - MPS_PickPlace - WARNING - Conexão não estabelecida para 192.168.0.33:502.
+2026-01-13 17:59:25,882 - MPS_PickPlace - INFO - Todos os clientes Modbus inicializados: ['MPS_HANDLING', 'MPS_Pressing']
