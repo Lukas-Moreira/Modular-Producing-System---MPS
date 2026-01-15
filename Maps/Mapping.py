@@ -1,59 +1,78 @@
 class holding_register_handling_plc:
-    MB_RemoteEnable_W = 0
-    MB_Running =        1
-    MB_Stopped =        2
-    MB_Emergency =      3
-    MB_Start_W =        4
-    MB_Stop_W =         5
-    MB_Reset_W =        6
-    MB_Auto_W =         7
+    REMOTE_ENABLE =           0  # Habilita controle remoto
+    MACHINE_RUNNING =         1  # Indica máquina rodando
+    MACHINE_STOPPED =         2  # Indica máquina parada
+    MACHINE_EMERGENCY =       3  # Indica máquina em emergência
+    
+    CMD_START =               4  # Pulso Start
+    CMD_STOP =                5  # Pulso Stop
+    CMD_RESET =               6  # Pulso Reset
+    MODE_AUTO =               7  # Modo Auto(1) / Manual(0)
 
-    MB_L_VD_CAN =       8
-    MB_L_AM_CAN =       9
-    MB_L_VM_CAN =       10
-    MB_L_START =        11
-    MB_L_RESET =        12
-    MB_Q1 =             13
-    MB_Q2 =             14
-    MB_M0_ESQ_CAN =     15
-    MB_M0_DIR_CAN =     16
-    MB_A1_CAN =         17
-    MB_A2_CAN =         18
-    MB_A3_CAN =         19
+    LAMP_GREEN =              8  # Liga lâmpada verde
+    LAMP_YELLOW =             9  # Liga lâmpada amarela
+    LAMP_RED =               10  # Liga lâmpada vermelha
+    LAMP_START =             11  # Liga lâmpada de Start
+    LAMP_RESET =             12  # Liga lâmpada de Reset
+    LAMP_Q1 =                13  # Liga lâmpada Q1
+    LAMP_Q2 =                14  # Liga lâmpada Q2
+    
+    GRIPPER_TO_MAGAZINE_ESQ =    15  # Move unidade da garra para posição magazine (esquerda)
+    GRIPPER_TO_STATION_DIR =     16  # Move unidade da garra para posição próxima estação (direita)
+    GRIPPER_DOWN =           17  # Desce a garra
+    GRIPPER_OPEN =           18  # Abre a garra
+    MAGAZINE_EJECT =         19  # Recua o atuador do magazine (expulsa a peça)
 
 class input_register_handling_plc:
-    MB_PART_AV_CAN =    0
-    MB_1B1_CAN =        1
-    MB_1B2_CAN =        2
-    MB_1B3_CAN =        3
-    MB_2B1_CAN =        4
-    MB_2B2_CAN =        5
-    MB_3B1_CAN =        6
+    sensor_peca_suporte =    0
+    sensor_braco_deixa =        1
+    sensor_braco_home = 2
+    sensor_braco_rejeito =        3
+    sensor_garra_avancada =        4
+    sensor_garra_recuada =        5
+    sensor_peca_garra =        6
     MB_IP_FI_CAN =      7
+    button_start = 8
+    button_stop = 9
+    button_reset = 10
+    sensor_magazine_entrada_recuado =      11
+    sensor_magazine_entrada_avancado =      12
+
 
 class holding_register_pressing_plc:
-    MB_Start_W=    0
-    MB_L_START=    1
-    MB_L_RESET=    2
-    MB_Q1     =    3
-    MB_Q2     =    4
-    MB_M0     =    5
-    MB_A0     =    6
-    MB_A1     =    7
-    MB_A2     =    8
-    MB_A3     =    9
-    MB_A4     =    10
+    """Registradores de escrita (Holding Registers) do PLC de prensagem"""
+    
+    # Controles da esteira e componentes
+    MB_LIGA_ESTEIRA = 0
+    MB_REC_BLOQUEADOR = 1
+    MB_REC_COINS = 2
+    MB_PRESS_ON = 3
+    MB_REC_ACTUATOR_STOP_COIN = 4
+    MB_AVANCA_COINS = 5
+    
+    # Controles de lógica
+    MB_L_START = 6
+    MB_L_RESET = 7
+    MB_L_Q1 = 8
+    MB_L_Q2 = 9
+    
 
-class input_register_ppressing_plc:
-    MB_PART_AV      = 0
-    MB_1B1          = 1
-    MB_1B2          = 2
-    MB_2B1          = 3
-    MB_3B1          = 4
-    MB_4B1          = 5
-    MB_5B1          = 6
-    MB_5B2          = 7
-    MB_B_START      = 8
-    MB_B_STOP       = 9
-    MB_CH_AT_MAN    = 10
-    MB_B_RESET      = 11
+class input_register_pressing_plc:
+    """Registradores de leitura (Input Registers) do PLC de prensagem"""
+    
+    # Controles principais
+    MB_START = 0
+    MB_STOP = 1
+    MB_RESET = 2
+    
+    # Sensores e estados de peças
+    MB_PART_AV = 3
+    MB_PC_COIN = 4
+    MB_PC_FIM = 5
+    MB_SENSOR_IND = 6
+    MB_BARREIRA_IND = 7
+    
+    # Posições e bloqueios
+    MB_BLOQ_FRONT = 8
+    MB_COIN_REC = 9
+    MB_COIN_FRONT = 10
