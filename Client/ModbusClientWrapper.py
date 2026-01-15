@@ -17,11 +17,26 @@ class ModbusClientWrapper:
         self.logger = loggerManager.LoggerManager()
         self.logger.set_name(client if client else "Module no named")
         self.holding_registers = holding_registers
-
+        
         try:
-            self.client = ModbusClient(
-                host=host, port=port, auto_open=False, auto_close=False, timeout=timeout
-            )
+
+            if(host == '192.168.0.32' or host == '192.168.0.31'):
+                unit_id = 0
+
+                self.client = ModbusClient(
+                    host=host, port=port, auto_open=False, auto_close=False, timeout=timeout, unit_id = unit_id
+                )
+            
+                print(host, unit_id)
+
+            else:
+                self.client = ModbusClient(
+                    host=host, port=port, auto_open=False, auto_close=False, timeout=timeout, unit_id = 1
+                )
+
+            print(self.client.is_open, host)
+
+
 
             if not self.client.open():
                 self.logger.logger.warning(
