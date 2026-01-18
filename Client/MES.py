@@ -11,8 +11,7 @@ from Maps.Mapping import holding_register_handling_plc
 from Maps.Mapping import input_register_pressing_plc
 from Maps.Mapping import holding_register_pressing_plc
 import rtde_io
-
-
+from Server.DigitalTwin import DigitalTwin, DI, INPUT_HR
 
 def escrever_saida_digital(host, output_id, valor):
     """
@@ -62,7 +61,7 @@ class Piece:
     id: int
 
 class MES:
-    def __init__(self, clients: Optional[dict[str, ModbusTcpClient]] = None):
+    def __init__(self, clients: Optional[dict[str, ModbusTcpClient]] = None, gemeo: DigitalTwin = None):
         self.logger = loggerManager.LoggerManager()
         self.logger.set_name('MES of MPS')
 
@@ -70,6 +69,7 @@ class MES:
         self.parts = []
 
         self.state_machine = 'running'
+        self.gemeo = gemeo
 
         if not self.clients:
             self.logger.set_level("ERROR")
@@ -164,10 +164,13 @@ class MES:
                     
                     self.state_machine = "running"
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_START, value=1, slave=0)
-                    
+                    self.gemeo.set_parameter(DI.START_BUTTON_LIGHT, True)
+                    self.gemeo.commit_all()                    
                     time.sleep(0.5)
                     
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_START, value=0, slave=0)
+                    self.gemeo.set_parameter(DI.START_BUTTON_LIGHT, False)
+                    self.gemeo.commit_all()
                 
                 if current_stop == 0 and last_stop == 1:
                     print("Botão STOP pressionado!")
@@ -180,10 +183,14 @@ class MES:
                     
                     self.state_machine = "idle"
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RESET, value=1, slave=0)
+                    self.gemeo.set_parameter(DI.RESET_BUTTON_LIGHT, True)
+                    self.gemeo.commit_all()
                     
                     time.sleep(0.5)
                     
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RESET, value=0, slave=0)
+                    self.gemeo.set_parameter(DI.RESET_BUTTON_LIGHT, False)
+                    self.gemeo.commit_all()
                     self.reset_to_home_position()
                 
                 last_start = current_start
@@ -205,61 +212,103 @@ class MES:
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_GREEN, value=1, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_YELLOW, value=0, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RED, value=0, slave=0)
+                    self.gemeo.set_parameter(DI.LAMP_GREEN_DT, True)
+                    self.gemeo.set_parameter(DI.LAMP_YELLOW_DT, False)
+                    self.gemeo.set_parameter(DI.LAMP_RED_DT, False)
+                    self.gemeo.commit_all()
                     time.sleep(0.1)
                 
                 elif state == "idle":
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_GREEN, value=1, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_YELLOW, value=1, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RED, value=0, slave=0)
+                    self.gemeo.set_parameter(DI.LAMP_GREEN_DT, True)
+                    self.gemeo.set_parameter(DI.LAMP_YELLOW_DT, True)
+                    self.gemeo.set_parameter(DI.LAMP_RED_DT, False)
+                    self.gemeo.commit_all()
                     time.sleep(0.5)
                     
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_YELLOW, value=0, slave=0)
+                    self.gemeo.set_parameter(DI.LAMP_YELLOW_DT, False)
+                    self.gemeo.commit_all()
                     time.sleep(0.2)
                     
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_YELLOW, value=1, slave=0)
+                    self.gemeo.set_parameter(DI.LAMP_YELLOW_DT, True)
+                    self.gemeo.commit_all()
                     time.sleep(0.2)
                 
                 elif state == "error":
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_GREEN, value=0, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_YELLOW, value=1, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RED, value=1, slave=0)
+                    self.gemeo.set_parameter(DI.LAMP_GREEN_DT, False)
+                    self.gemeo.set_parameter(DI.LAMP_YELLOW_DT, True)
+                    self.gemeo.set_parameter(DI.LAMP_RED_DT, True)
+                    self.gemeo.commit_all()
                     time.sleep(0.1)
                 
                 elif state == "emergency":
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_GREEN, value=0, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_YELLOW, value=0, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RED, value=1, slave=0)
+                    self.gemeo.set_parameter(DI.LAMP_GREEN_DT, False)
+                    self.gemeo.set_parameter(DI.LAMP_YELLOW_DT, False)
+                    self.gemeo.set_parameter(DI.LAMP_RED_DT, True)
+                    self.gemeo.commit_all()
                     time.sleep(0.5)
                     
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RED, value=0, slave=0)
+                    self.gemeo.set_parameter(DI.LAMP_RED_DT, False)
+                    self.gemeo.commit_all()
                     time.sleep(0.5)
                 
                 elif state == "cycle":
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_GREEN, value=0, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_YELLOW, value=0, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RED, value=1, slave=0)
+                    self.gemeo.set_parameter(DI.LAMP_GREEN_DT, False)
+                    self.gemeo.set_parameter(DI.LAMP_YELLOW_DT, False)
+                    self.gemeo.set_parameter(DI.LAMP_RED_DT, True)
+                    self.gemeo.commit_all()
                     time.sleep(1)
                     
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_GREEN, value=0, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_YELLOW, value=1, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RED, value=0, slave=0)
+                    self.gemeo.set_parameter(DI.LAMP_GREEN_DT, False)
+                    self.gemeo.set_parameter(DI.LAMP_YELLOW_DT, True)
+                    self.gemeo.set_parameter(DI.LAMP_RED_DT, False)
+                    self.gemeo.commit_all()
                     time.sleep(1)
                     
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_GREEN, value=1, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_YELLOW, value=0, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RED, value= 0, slave=0)
+                    self.gemeo.set_parameter(DI.LAMP_GREEN_DT, True)
+                    self.gemeo.set_parameter(DI.LAMP_YELLOW_DT, False)
+                    self.gemeo.set_parameter(DI.LAMP_RED_DT, False)
+                    self.gemeo.commit_all()
                     time.sleep(1)
                 
                 elif state == "stopped":
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_GREEN, value=0, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_YELLOW, value=0, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RED, value=1, slave=0)
+                    self.gemeo.set_parameter(DI.LAMP_GREEN_DT, False)
+                    self.gemeo.set_parameter(DI.LAMP_YELLOW_DT, False)
+                    self.gemeo.set_parameter(DI.LAMP_RED_DT, True)
+                    self.gemeo.commit_all()
                     time.sleep(0.1)
                 
                 else:
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_GREEN, value=0, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_YELLOW, value=0, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RED, value=0, slave=0)
+                    self.gemeo.set_parameter(DI.LAMP_GREEN_DT, False)
+                    self.gemeo.set_parameter(DI.LAMP_YELLOW_DT, False)
+                    self.gemeo.set_parameter(DI.LAMP_RED_DT, False)
+                    self.gemeo.commit_all()
                     time.sleep(0.1)
             
             except Exception as e:
@@ -306,6 +355,8 @@ class MES:
             return True
         
         self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_DOWN, value = 1, slave = 0)
+        self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_Z, 1000)
+        self.gemeo.commit_all()
         
         timeout = 5
         start_time = time.time()
@@ -339,6 +390,8 @@ class MES:
             return True
         
         self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_DOWN, value = 0, slave = 0)
+        self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_Z, 0)
+        self.gemeo.commit_all()
         
         timeout = 5
         start_time = time.time()
@@ -373,6 +426,8 @@ class MES:
             return True
         
         self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_TO_STATION_DIR, value = 1, slave = 0)
+        self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_X, 1000)
+        self.gemeo.commit_all()
         
         timeout = 10
         start_time = time.time()
@@ -382,6 +437,8 @@ class MES:
             
             if not result.isError() and result.registers[0] == 1:
                 self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_TO_STATION_DIR, value = 0, slave = 0)
+                self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_X, 1000)
+                self.gemeo.commit_all()
                 print("Braço chegou na posição HOME")
                 return True
             
@@ -406,6 +463,8 @@ class MES:
             return True
         
         self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_TO_STATION_DIR, value = 1, slave = 0)
+        self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_X, 1000)
+        self.gemeo.commit_all()
         
         timeout = 10
         start_time = time.time()
@@ -455,6 +514,8 @@ class MES:
         
         print(f"Movendo para {direction}...")
         self.clients['MPS_HANDLING'].write_register(address = register_move, value = 1, slave = 0)
+        self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_X, 6200)
+        self.gemeo.commit_all()
         
         timeout = 10
         start_time = time.time()
@@ -494,6 +555,8 @@ class MES:
             return True
         
         self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_TO_MAGAZINE_ESQ, value = 1, slave = 0)
+        self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_X, 0)
+        self.gemeo.commit_all()
         
         timeout = 10
         start_time = time.time()
@@ -528,6 +591,8 @@ class MES:
             return True
         
         self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.MAGAZINE_EJECT, value = 0, slave = 0)
+        self.gemeo.set_parameter(DI.Cylinder_Pusher_Feeder, False)
+        self.gemeo.commit_all()
         
         timeout = 5
         start_time = time.time()
@@ -559,6 +624,8 @@ class MES:
             return True
         
         self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.MAGAZINE_EJECT, value = 1, slave = 0)
+        self.gemeo.set_parameter(DI.Cylinder_Pusher_Feeder, True)
+        self.gemeo.commit_all()        
         
         timeout = 5
         start_time = time.time()
@@ -567,6 +634,8 @@ class MES:
             # Checa se parou
             if self.state_machine != 'running':
                 self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.MAGAZINE_EJECT, value = 0, slave = 0)
+                self.gemeo.set_parameter(DI.Cylinder_Pusher_Feeder, False)
+                self.gemeo.commit_all()
                 print("Operação cancelada - sistema parado")
                 return False
                 
@@ -711,10 +780,14 @@ class MES:
                     continue
                     
                 self.clients['MPS_PRESSING'].write_register(address = holding_register_pressing_plc.MB_LIGA_ESTEIRA, value = 1, slave = 0)
+                self.gemeo.set_parameter(DI.Conveyor_Job, True)
+                self.gemeo.commit_all()
                 
                 while True:
                     if self.state_machine != 'running':
                         self.clients['MPS_PRESSING'].write_register(address = holding_register_pressing_plc.MB_LIGA_ESTEIRA, value = 0, slave = 0)
+                        self.gemeo.set_parameter(DI.Conveyor_Job, False)
+                        self.gemeo.commit_all()
                         break
                     
                     result_barreira = self.clients['MPS_PRESSING'].read_input_registers(address = input_register_pressing_plc.MB_BARREIRA_IND, count = 1, slave = 0)
@@ -723,6 +796,8 @@ class MES:
                         print("Peça chegou na barreira indutiva - identificando cor...")
                         
                         self.clients['MPS_PRESSING'].write_register(address = holding_register_pressing_plc.MB_LIGA_ESTEIRA, value = 0, slave = 0)
+                        self.gemeo.set_parameter(DI.Conveyor_Job, False)
+                        self.gemeo.commit_all()
                         time.sleep(0.3)
                         
                         result_sensor = self.clients['MPS_PRESSING'].read_input_registers(address = input_register_pressing_plc.MB_SENSOR_IND, count = 1, slave = 0)
@@ -742,6 +817,8 @@ class MES:
                         
                         time.sleep(0.5)
                         self.clients['MPS_PRESSING'].write_register(address = holding_register_pressing_plc.MB_LIGA_ESTEIRA, value = 1, slave = 0)
+                        self.gemeo.set_parameter(DI.Conveyor_Job, True)
+                        self.gemeo.commit_all()
                         break
                     
                     time.sleep(0.05)
@@ -749,6 +826,8 @@ class MES:
                 while True:
                     if self.state_machine != 'running':
                         self.clients['MPS_PRESSING'].write_register(address = holding_register_pressing_plc.MB_LIGA_ESTEIRA, value = 0, slave = 0)
+                        self.gemeo.set_parameter(DI.Conveyor_Job, False)
+                        self.gemeo.commit_all()
                         break
                         
                     result_fim = self.clients['MPS_PRESSING'].read_input_registers(address = input_register_pressing_plc.MB_PC_FIM, count = 1, slave = 0)
@@ -756,6 +835,8 @@ class MES:
                     if not result_fim.isError() and result_fim.registers[0] == 1:
                         print("Peça chegou no final da esteira")
                         self.clients['MPS_PRESSING'].write_register(address = holding_register_pressing_plc.MB_LIGA_ESTEIRA, value = 0, slave = 0)
+                        self.gemeo.set_parameter(DI.Conveyor_Job, False)
+                        self.gemeo.commit_all()
                         
                         if(self.parts[0] == 'prata'):
                             

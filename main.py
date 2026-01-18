@@ -3,6 +3,7 @@ import uvicorn
 import threading
 import time
 from pymodbus.client import ModbusTcpClient
+from Server.DigitalTwin import DigitalTwin
 
 from Client.MES import MES
 from api import app
@@ -70,10 +71,16 @@ def main() -> None:
             'MPS_PRESSING': client_pressing,
             # 'MPS_SORTING': client_sorting
         }
-        
-        mes_client: MES = MES(modbus_clients)
-        mes_client.state_machine = 'cycle'
 
+        try:
+            gemeo = DigitalTwin()
+            print("Digital Twin iniciado e vinculado ao MES!")
+        except Exception as e:
+            print(f"Erro ao iniciar o Digital Twin: {e}")
+            gemeo = None
+        
+        mes_client: MES = MES(modbus_clients, gemeo=gemeo)
+        mes_client.state_machine = 'cycle'
         
         print("\nIniciando threads do MES...")
         
