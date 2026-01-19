@@ -16,13 +16,13 @@ class DI(IntEnum):
     Enum de Discrete Inputs (DI) do Digital Twin.
 
     Atributos:
-        Cylinder_Pusher_Feeder (int): DI para o empurrador do cilindro do alimentador.
-        Conveyor_Job (int)          : DI para a esteira de trabalho.
-        LAMP_GREEN_DT (int)         : DI para a lâmpada verde do Andon.
-        LAMP_YELLOW_DT (int)        : DI para a lâmpada amarela do Andon.
-        LAMP_RED_DT (int)           : DI para a lâmpada vermelha do Andon.
-        START_BUTTON_LIGHT (int)    : DI para a luz do botão de início.
-        RESET_BUTTON_LIGHT (int)    : DI para a luz do botão de reset.
+        - Cylinder_Pusher_Feeder (int): DI para o empurrador do cilindro do alimentador.
+        - Conveyor_Job (int)          : DI para a esteira de trabalho.
+        - LAMP_GREEN_DT (int)         : DI para a lâmpada verde do Andon.
+        - LAMP_YELLOW_DT (int)        : DI para a lâmpada amarela do Andon.
+        - LAMP_RED_DT (int)           : DI para a lâmpada vermelha do Andon.
+        - START_BUTTON_LIGHT (int)    : DI para a luz do botão de início.
+        - RESET_BUTTON_LIGHT (int)    : DI para a luz do botão de reset.
     '''
     Cylinder_Pusher_Feeder = 0
     Conveyor_Job           = 2
@@ -38,8 +38,8 @@ class INPUT_HR(IntEnum):
     Enum de Holding Registers (INPUT_HR) do Digital Twin.
 
     Atributos:
-        Crane_Fedder_Setpoint_X (int): INPUT_HR para o setpoint X do braço do alimentador.
-        Crane_Fedder_Setpoint_Z (int): INPUT_HR para o setpoint Z do braço do alimentador.
+        - Crane_Fedder_Setpoint_X (int): INPUT_HR para o setpoint X do braço do alimentador.
+        - Crane_Fedder_Setpoint_Z (int): INPUT_HR para o setpoint Z do braço do alimentador.
     '''
     Crane_Fedder_Setpoint_X = 0
     Crane_Fedder_Setpoint_Z = 2
@@ -50,9 +50,9 @@ class DigitalTwin:
     Classe que representa o Digital Twin do sistema Modular Producing System (MPS) da Festo.
 
     Metodos:
-        __init__(): Inicializa o servidor Modbus e configura o banco de registradores.
-        commit_all(): Atualiza todos os Discrete Inputs e Holding Registers no servidor Modbus.
-        set_parameter(parameter, value): Define o valor de um parâmetro específico (DI ou INPUT_HR).
+        - __init__(): Inicializa o servidor Modbus e configura o banco de registradores.
+        - commit_all(): Atualiza todos os Discrete Inputs e Holding Registers no servidor Modbus.
+        - set_parameter(parameter, value): Define o valor de um parâmetro específico (DI ou INPUT_HR).
     '''
     def __init__(self):
         self.logger = loggerManager.LoggerManager()
@@ -87,8 +87,8 @@ class DigitalTwin:
         Metodo da classe DigitalTwin que faz o set do valor de um parâmetro específico (DI ou INPUT_HR).
         
         Args:
-            parameter (DI | INPUT_HR): O parâmetro a ser definido.
-            value (int | bool)       : O valor a ser atribuído ao parâmetro.
+            - parameter (DI | INPUT_HR): O parâmetro a ser definido.
+            - value (int | bool)       : O valor a ser atribuído ao parâmetro.
 
         No caso dos parâmetros INPUT_HR, o valor, por se tratar de um registrador, deve ser um inteiro que varie dentro do intervalo 0 a 1000.
         Isso se deve ao fato de que no factoryIO esses registradores variam entre 0 até 10.0

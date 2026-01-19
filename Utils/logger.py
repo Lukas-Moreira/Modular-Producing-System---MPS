@@ -11,6 +11,7 @@ class CustomFormatter(logging.Formatter):
             return msg.encode('ascii', errors='ignore').decode('ascii')
 
 class LoggerManager:
+    """ Gerenciador de logging para a aplicação MPS Festo. """
     _instance = None
 
     def __new__(cls, *args, **kwargs):
@@ -18,7 +19,6 @@ class LoggerManager:
             cls._instance = super(LoggerManager, cls).__new__(cls, *args, **kwargs)
         return cls._instance
     
-    """ Gerenciador de logging para a aplicação MPS Festo. """
     def __init__(self, log_level: str = "INFO"):
         self.logger = logging.getLogger('MPS_Festo')
         self.logger.setLevel(getattr(logging, log_level.upper()))
@@ -49,13 +49,12 @@ class LoggerManager:
         except Exception as e:
             print(f"⚠️ Erro configurando logging: {e}")
 
-    """ Define o nome do logger. """
     def set_name(self, name: str):
+        """ Define o nome do logger. """
         self.logger.name = name
     
-    """ Define o nível de logging. """
     def set_level(self, log_level: str):
+        """ Define o nível de logging. """
         self.logger.setLevel(getattr(logging, log_level.upper()))
 
-""" Instância única do gerenciador de logging. """
-loggerManager = LoggerManager()
+loggerManager = LoggerManager()  # Instância singleton do LoggerManager
