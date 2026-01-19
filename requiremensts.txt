@@ -1,0 +1,9 @@
+# Dependências detectadas no projeto
+fastapi
+uvicorn
+pymodbus
+pyModbusTCP
+pyodbc
+ur-rtde
+
+# Observação: Dependências auxiliares (pydantic, starlette, etc.) serão instaladas automaticamente pelo pip
