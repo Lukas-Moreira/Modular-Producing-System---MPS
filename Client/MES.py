@@ -2,7 +2,6 @@ import time
 import Utils.logger as loggerManager
 
 from typing import Optional
-from States.PLCState import PLC
 from dataclasses import dataclass
 from pymodbus.client import ModbusTcpClient
 
@@ -10,11 +9,14 @@ from Maps.Mapping import input_register_handling_plc
 from Maps.Mapping import holding_register_handling_plc
 from Maps.Mapping import input_register_pressing_plc
 from Maps.Mapping import holding_register_pressing_plc
+
+# ==== robot
 import rtde_io
+import rtde_receive
 
 
 
-def escrever_saida_digital(host, output_id, valor):
+def escrever_saida_digital_robot(host, output_id, valor):
     """
     Conecta ao robô e escreve um valor na saída digital padrão.
 
@@ -43,13 +45,36 @@ def escrever_saida_digital(host, output_id, valor):
         return sucesso
     
     except Exception as e:
-        print(f"❌ Erro ao escrever na saída digital: {e}")
+        print(f"Erro ao escrever na saída digital: {e}")
         return False
 
+def ler_saida_digital_robot(host, output_id):
+    """
+    Conecta ao robô e lê o valor atual da saída digital padrão.
+
+    Args:
+        host (str): Endereço IP do robô.
+        output_id (int): ID da saída digital [0-7] para saídas padrão.
+
+    Returns:
+        bool or None: True se HIGH, False se LOW, None se erro.
+    """
+    try:
+        rtde_r = rtde_receive.RTDEReceiveInterface(host)
+        
+        valor_atual = rtde_r.getDigitalOutState(output_id)
+        
+        print(f"[robot] - Saída digital {output_id} está: {valor_atual}")
+
+        rtde_r.disconnect()
+        
+        return valor_atual
+    
+    except Exception as e:
+        print(f"Erro ao ler a saída digital: {e}")
+        return None
 
 HOST = "192.168.0.10"
-
-
 
 PLC_ROLE_MAP = {
     "MPS_HANDLING": "handling",
@@ -68,6 +93,8 @@ class MES:
 
         self.clients = clients or {}
         self.parts = []
+
+        self.preemption_lamp_control = False
 
         self.state_machine = 'running'
 
@@ -146,6 +173,7 @@ class MES:
         last_reset = 0
         
         while True:
+
             try:
                 result_start = self.clients['MPS_HANDLING'].read_input_registers(address=input_register_handling_plc.button_start, count=1, slave=0)
                 result_stop = self.clients['MPS_HANDLING'].read_input_registers(address=input_register_handling_plc.button_stop, count=1, slave=0)
@@ -198,6 +226,11 @@ class MES:
     
     def handle_lamp(self):
         while True:
+
+            if self.preemption_lamp_control: 
+                time.sleep(0.1)
+                continue
+    
             state = self.state_machine if hasattr(self, 'state_machine') else "stopped"
             
             try:
@@ -253,6 +286,12 @@ class MES:
                 elif state == "stopped":
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_GREEN, value=0, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_YELLOW, value=0, slave=0)
+                    self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RED, value=1, slave=0)
+                    time.sleep(0.1)
+
+                elif state == "no_product":
+                    self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_GREEN, value=0, slave=0)
+                    self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_YELLOW, value=1, slave=0)
                     self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RED, value=1, slave=0)
                     time.sleep(0.1)
                 
@@ -609,7 +648,7 @@ class MES:
         self.magazine_eject()
         
         while True:
-            # Checa se está parado
+            # Checsa se está parado
             if self.state_machine != 'running':
                 time.sleep(0.1)
                 continue
@@ -682,6 +721,20 @@ class MES:
                 if self.state_machine != 'running':
                     continue
                 time.sleep(0.2)
+
+            else:
+                self.preemption_lamp_control = True
+                time.sleep(0.1)
+
+                self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_GREEN, value=0, slave=0)
+                self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_YELLOW, value=1, slave=0)
+                self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.LAMP_RED, value=1, slave=0)
+                
+                time.sleep(5)
+
+                self.preemption_lamp_control = False
+
+
 
 
     # =============================================
@@ -759,27 +812,44 @@ class MES:
                         
                         if(self.parts[0] == 'prata'):
                             
-                            escrever_saida_digital(HOST, 0, True)
-                            escrever_saida_digital(HOST, 1, False)
-                            escrever_saida_digital(HOST, 2, True)
+                            escrever_saida_digital_robot(HOST, 0, True)
+                            escrever_saida_digital_robot(HOST, 1, False)
+                            escrever_saida_digital_robot(HOST, 2, True)
 
                         elif(self.parts[0] == 'rosa'):
                             
-                            escrever_saida_digital(HOST, 0, True)
-                            escrever_saida_digital(HOST, 1, True)
-                            escrever_saida_digital(HOST, 2, False)
+                            escrever_saida_digital_robot(HOST, 0, True)
+                            escrever_saida_digital_robot(HOST, 1, True)
+                            escrever_saida_digital_robot(HOST, 2, False)
 
                         elif(self.parts[0] == 'preto'):
                             
-                            escrever_saida_digital(HOST, 0, True)
-                            escrever_saida_digital(HOST, 1, True)
-                            escrever_saida_digital(HOST, 2, True)
+                            escrever_saida_digital_robot(HOST, 0, True)
+                            escrever_saida_digital_robot(HOST, 1, True)
+                            escrever_saida_digital_robot(HOST, 2, True)
 
                         time.sleep(60)
 
-                        escrever_saida_digital(HOST, 0, False)
-                        escrever_saida_digital(HOST, 1, False)
-                        escrever_saida_digital(HOST, 2, False)
+                        timeout = 30
+                        start_time = time.time()
+
+                        while time.time() - start_time < timeout:
+
+                            if self.state_machine != 'running':
+                                print("Operação cancelada - parando robo!")
+
+                                escrever_saida_digital_robot(HOST, 0, False)
+                                escrever_saida_digital_robot(HOST, 1, False)
+                                escrever_saida_digital_robot(HOST, 2, False)
+                                return False
+                                
+                            result = ler_saida_digital_robot(HOST, 5)
+                            
+                            time.sleep(0.05)
+
+                        escrever_saida_digital_robot(HOST, 0, False)
+                        escrever_saida_digital_robot(HOST, 1, False)
+                        escrever_saida_digital_robot(HOST, 2, False)
 
 
                         print(f"\n =========> Histórico de peças: {self.parts}")
