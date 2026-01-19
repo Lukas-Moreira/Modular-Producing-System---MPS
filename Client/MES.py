@@ -61,6 +61,27 @@ class Piece:
     id: int
 
 class MES:
+    '''
+    Classe que abstrai o MES do Sistema de Produção Modular (MPS).
+
+    Métodos:
+        - get_plc(name: str) -> ModbusTcpClient: Retorna o cliente Modbus do PLC pelo nome.
+        - stop_all_operations(): Para todas as operações de todos os PLC's.
+        - reset_to_home_position(): Reseta o sistema para a posição home.
+        - monitor_buttons(): Monitora os botões de start, stop e reset.
+        - handle_lamp(): Controla as lâmpadas indicadoras de status.
+        - gripper_open(): Abre a garra do manipulador.
+        - gripper_close(): Fecha a garra do manipulador.
+        - gripper_down(): Desce a garra do manipulador.
+        - gripper_up(): Sobe a garra do manipulador.
+        - move_to_home(): Move o manipulador para a posição home.
+        - move_to_reject(): Move o manipulador para a posição de rejeito.
+        - move_to_drop(): Move o manipulador para a posição de deixar peça.
+        - magazine_eject(): Ejetar peça do magazine.
+        - magazine_advance(): Avança o magazine para a posição de pegar peça.
+        - flow_first_plc(): Fluxo principal do PLC de manuseio.
+        - flow_second_plc(): Fluxo principal do PLC de prensagem.
+    '''
     def __init__(self, clients: Optional[dict[str, ModbusTcpClient]] = None, gemeo: DigitalTwin = None):
         self.logger = loggerManager.LoggerManager()
         self.logger.set_name('MES of MPS')
@@ -77,6 +98,18 @@ class MES:
             raise ValueError("MES inicializado sem clientes Modbus.")
 
     def get_plc(self, name: str) -> ModbusTcpClient:
+        '''
+        Método para obter o cliente Modbus de um PLC pelo nome.
+
+        Args:
+            name (str): Nome do PLC (e.g., 'MPS_HANDLING', 'MPS_PRESSING', 'MPS_SORTING').
+
+        Returns:
+            ModbusTcpClient: Cliente Modbus do PLC solicitado.
+
+        Raises:
+            KeyError: Se o PLC com o nome fornecido não for encontrado.
+        '''
         try:
             return self.clients[name]
         except KeyError:
@@ -84,7 +117,9 @@ class MES:
         
 
     def stop_all_operations(self):
-        """Para todas as operações dos 3 PLCs escrevendo 0 em todos os registradores de saída"""
+        '''
+        Método para parar todas as operações de todos os PLC's.
+        '''
         print("PARANDO TODAS AS OPERAÇÕES...")
         
         try:
@@ -117,7 +152,9 @@ class MES:
             return False
 
     def reset_to_home_position(self):
-        """Reseta o sistema: sobe garra, recua magazine e vai para home"""
+        '''
+        Método que reseta o sistema: sobe garra, recua magazine e vai para home
+        '''        
         print("RESETANDO SISTEMA...")
         
         try:
@@ -141,6 +178,19 @@ class MES:
 
 
     def monitor_buttons(self):
+        '''
+        Método que monitora os botões de start, stop e reset do sistema.
+
+        Principal funcionalidade:
+            - Start: Inicia o sistema se estiver em estado 'idle'.
+            - Stop: Para o sistema se estiver em estado 'running' ou 'cycle'.
+            - Reset: Reseta o sistema se estiver em estado 'stopped' ou 'cycle'.
+        
+        Observação:
+            - O estado do sistema é gerenciado pela variável 'state_machine'.
+            - As ações dos botões são refletidas nas lâmpadas indicadoras e no Digital Twin.
+        '''
+
         last_start = 0
         last_stop = 0
         last_reset = 0
@@ -204,6 +254,21 @@ class MES:
                 time.sleep(0.1)
     
     def handle_lamp(self):
+        '''
+        Método que controla as lâmpadas indicadoras de status do sistema.
+
+        Estados e comportamentos:
+            - running: Lâmpada verde acesa.
+            - idle:        Lâmpada verde acesa, lâmpada amarela piscando.
+            - error:       Lâmpada vermelha e amarela acesas.
+            - emergency:   Lâmpada vermelha piscando.
+            - cycle:       Lâmpadas vermelha, amarela e verde piscando em sequência.
+            - stopped:     Lâmpada vermelha acesa.
+        
+        Observação:
+            - O estado do sistema é determinado pela variável 'state_machine'.
+            - As lâmpadas são controladas via registros Modbus e atualizadas no Digital Twin.
+        '''
         while True:
             state = self.state_machine if hasattr(self, 'state_machine') else "stopped"
             
@@ -320,6 +385,12 @@ class MES:
     # ============================================
 
     def gripper_open(self):
+        '''
+        Método para abrir a garra do sistema.
+
+        Returns:
+            bool: True se a garra foi aberta com sucesso, False em caso de erro.
+        '''
         print("Abrindo garra...")
         
         resultado = self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.GRIPPER_OPEN, value=1, slave=0)
@@ -333,6 +404,13 @@ class MES:
         return True
 
     def gripper_close(self):
+        '''
+        Método para fechar a garra do sistema.
+
+        Returns:
+            bool: True se a garra foi fechada com sucesso, False em caso de erro.
+        '''
+
         print("Fechando garra...")
         
         resultado = self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.GRIPPER_OPEN, value=0, slave=0)
@@ -346,6 +424,18 @@ class MES:
         return True
 
     def gripper_down(self):
+        '''
+        Método para descer a garra do sistema.
+
+        Returns:
+            bool: True se a garra desceu com sucesso, False em caso de erro.
+        
+        Observação:
+            - Verifica se a garra já está na posição baixa antes de descer.
+            - Utiliza um timeout para evitar espera indefinida.
+            - Notifica o Digital Twin sobre o status da operação.
+        '''
+
         print("Descendo garra...")
         
         result = self.clients['MPS_HANDLING'].read_input_registers(address = input_register_handling_plc.sensor_garra_avancada, count = 1, slave = 0)
@@ -381,6 +471,18 @@ class MES:
         return False
 
     def gripper_up(self):
+        '''
+        Método para subir a garra do sistema.
+
+        Returns:
+            bool: True se a garra subiu com sucesso, False em caso de erro.
+        
+        Observação:
+            - Verifica se a garra já está na posição alta antes de subir.
+            - Utiliza um timeout para evitar espera indefinida.
+            - Notifica o Digital Twin sobre o status da operação.
+        '''
+
         print("Subindo garra...")
         
         result = self.clients['MPS_HANDLING'].read_input_registers(address = input_register_handling_plc.sensor_garra_recuada, count = 1, slave = 0)
@@ -415,6 +517,18 @@ class MES:
 
 
     def move_to_home_reset(self):
+        '''
+        Método para mover o manipulador para a posição home durante o reset do sistema.
+
+        Returns:
+            bool: True se o manipulador chegou na posição home com sucesso, False em caso de erro.
+        
+        Observação:
+            - Não verifica o estado da máquina, pois é usado durante o reset.
+            - Utiliza um timeout para evitar espera indefinida.
+            - Notifica o Digital Twin sobre o status da operação.
+        '''
+
         self.gripper_up()
         
         print("Movendo para HOME...")
@@ -449,6 +563,17 @@ class MES:
         return False
     
     def move_to_home(self):
+        '''
+        Método para mover o manipulador para a posição home durante a operação normal.
+
+        Returns:
+            bool: True se o manipulador chegou na posição home com sucesso, False em caso de erro.
+        
+        Observação:
+            - Verifica o estado da máquina antes de iniciar o movimento.
+            - Utiliza um timeout para evitar espera indefinida.
+            - Notifica o Digital Twin sobre o status da operação.
+        '''
         self.gripper_up()
         
         if self.state_machine != 'running':
@@ -490,6 +615,17 @@ class MES:
         return False
 
     def move_to_reject(self):
+        '''
+        Método para mover o manipulador para a posição rejeito durante a operação normal.
+
+        Returns:
+            bool: True se o manipulador chegou na posição rejeito com sucesso, False em caso de erro.
+        
+        Observação:
+            - Verifica o estado da máquina antes de iniciar o movimento.
+            - Utiliza um timeout para evitar espera indefinida.
+            - Notifica o Digital Twin sobre o status da operação.
+        '''
         self.gripper_up()
         
         if self.state_machine != 'running':
@@ -541,6 +677,17 @@ class MES:
         return False
 
     def move_to_drop(self):
+        '''
+        Método para mover o manipulador para a posição deixa durante a operação normal.
+
+        Returns:
+            bool: True se o manipulador chegou na posição deixa com sucesso, False em caso de erro.
+        
+        Observação:
+            - Verifica o estado da máquina antes de iniciar o movimento.
+            - Utiliza um timeout para evitar espera indefinida.
+            - Notifica o Digital Twin sobre o status da operação.
+        '''
         self.gripper_up()
         
         if self.state_machine != 'running':
@@ -582,6 +729,17 @@ class MES:
         return False
     
     def magazine_eject(self):
+        '''
+        Método para ejetar a peça do magazine.
+
+        Returns:
+            bool: True se a peça foi ejetada com sucesso, False em caso de erro.
+        
+        Observação:
+            - Verifica se o magazine já está recuado antes de ejetar.
+            - Utiliza um timeout para evitar espera indefinida.
+            - Notifica o Digital Twin sobre o status da operação.
+        '''
         print("Ejetando peça do magazine...")
         
         result = self.clients['MPS_HANDLING'].read_input_registers(address = input_register_handling_plc.sensor_magazine_entrada_recuado, count = 1, slave = 0)
@@ -615,6 +773,17 @@ class MES:
         return False
 
     def magazine_advance(self):
+        '''
+        Método para avançar o magazine.
+
+        Returns:
+            bool: True se o magazine foi avançado com sucesso, False em caso de erro.
+        
+        Observação:
+            - Verifica se o magazine já está avançado antes de avançar.
+            - Utiliza um timeout para evitar espera indefinida.
+            - Notifica o Digital Twin sobre o status da operação.
+        '''
         print("Avançando magazine...")
         
         result = self.clients['MPS_HANDLING'].read_input_registers(address = input_register_handling_plc.sensor_magazine_entrada_avancado, count = 1, slave = 0)
@@ -652,6 +821,16 @@ class MES:
 
 
     def recognize_inputs_handling(self):
+        '''
+        Método para reconhecer e exibir o estado dos botões de start, stop e reset do PLC de manuseio.
+
+        Returns:
+            None
+        
+        Observação:
+            - Lê os registradores de entrada correspondentes aos botões.
+            - Exibe o estado atual dos botões a cada 2 segundos.
+        '''
         while True:
             time.sleep(2)
             inputs = []
@@ -674,6 +853,24 @@ class MES:
             print('\n\n')
 
     def flow_first_plc(self):
+        '''
+        Método principal para o fluxo de operações do PLC de manuseio.
+
+        Funcionalidades:
+            - Verificação do estado da máquina.
+            - Avanço e ejeção do magazine.
+            - Operações da garra (abrir, fechar, mover para posições específicas).
+            - Detecção e classificação de peças (preto, prata, rosa).
+        
+        Returns:
+            None
+        
+        Observação:
+            - O fluxo é contínuo e depende do estado da máquina.
+            - Utiliza registros Modbus para comunicação com o PLC.
+            - Armazena a classificação das peças em uma lista 'parts'.
+        '''
+
         print('Iniciando flow_first_plc...')
         self.magazine_eject()
         
@@ -758,6 +955,23 @@ class MES:
     # =============================================
 
     def flow_second_plc(self):
+        '''
+        Método principal para o fluxo de operações do PLC de prensagem.
+
+        Funcionalidades:
+            - Verificação do estado da máquina.
+            - Detecção de peças na esteira.
+            - Identificação da cor das peças (prata, rosa).
+            - Controle da esteira e sinalização via Digital Twin.
+        
+        Returns:
+            None
+        
+        Observação:
+            - O fluxo é contínuo e depende do estado da máquina.
+            - Utiliza registros Modbus para comunicação com o PLC.
+            - Utiliza a lista 'parts' para armazenar a classificação das peças
+        '''
         while True:
             if self.state_machine != 'running':
                 time.sleep(0.1)
