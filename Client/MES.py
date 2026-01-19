@@ -535,12 +535,13 @@ class MES:
         
         result = self.clients['MPS_HANDLING'].read_input_registers(address = input_register_handling_plc.sensor_braco_home, count = 1, slave = 0)
         
-        if not result.isError() and result.registers[0] == 1:
+        if not result.isError() and result.registers[0] == 1 and INPUT_HR.Crane_Fedder_Setpoint_X == 1000:
             print("Braço já está na posição HOME")
             return True
         
         self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_TO_STATION_DIR, value = 1, slave = 0)
         self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_X, 1000)
+        print(f"Valor: {INPUT_HR.Crane_Fedder_Setpoint_X}")
         self.gemeo.commit_all()
         
         timeout = 10
@@ -552,6 +553,7 @@ class MES:
             if not result.isError() and result.registers[0] == 1:
                 self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_TO_STATION_DIR, value = 0, slave = 0)
                 self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_X, 1000)
+                print(f"Valor: {INPUT_HR.Crane_Fedder_Setpoint_X}")
                 self.gemeo.commit_all()
                 print("Braço chegou na posição HOME")
                 return True
@@ -589,6 +591,7 @@ class MES:
         
         self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_TO_STATION_DIR, value = 1, slave = 0)
         self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_X, 1000)
+        print(f"Valor: {INPUT_HR.Crane_Fedder_Setpoint_X}")
         self.gemeo.commit_all()
         
         timeout = 10
@@ -651,6 +654,7 @@ class MES:
         print(f"Movendo para {direction}...")
         self.clients['MPS_HANDLING'].write_register(address = register_move, value = 1, slave = 0)
         self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_X, 6200)
+        print(f"Valor: {INPUT_HR.Crane_Fedder_Setpoint_X}")
         self.gemeo.commit_all()
         
         timeout = 10
@@ -703,6 +707,7 @@ class MES:
         
         self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_TO_MAGAZINE_ESQ, value = 1, slave = 0)
         self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_X, 0)
+        print(f"Valor: {INPUT_HR.Crane_Fedder_Setpoint_X}")
         self.gemeo.commit_all()
         
         timeout = 10
