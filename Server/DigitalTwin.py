@@ -26,6 +26,7 @@ class DI(IntEnum):
     """
 
     Cylinder_Pusher_Feeder = 0
+    Crane_Feeder_Claw = 1
     Conveyor_Job = 2
     LAMP_GREEN_DT = 20
     LAMP_YELLOW_DT = 21

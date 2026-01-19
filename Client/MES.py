@@ -394,6 +394,8 @@ class MES:
         print("Abrindo garra...")
         
         resultado = self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.GRIPPER_OPEN, value=1, slave=0)
+        self.gemeo.set_parameter(DI.Crane_Feeder_Claw, False)
+        self.gemeo.commit_all()
         
         if resultado.isError():
             print(f"Erro ao abrir garra: {resultado}")
@@ -414,6 +416,8 @@ class MES:
         print("Fechando garra...")
         
         resultado = self.clients['MPS_HANDLING'].write_register(address=holding_register_handling_plc.GRIPPER_OPEN, value=0, slave=0)
+        self.gemeo.set_parameter(DI.Crane_Feeder_Claw, True)
+        self.gemeo.commit_all()
         
         if resultado.isError():
             print(f"Erro ao fechar garra: {resultado}")
