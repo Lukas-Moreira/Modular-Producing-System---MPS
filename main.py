@@ -13,24 +13,48 @@ from api import app
 # ========================================
 
 def run_lamps(mes_client: MES) -> None:
+    '''
+    Função para rodar o monitoramento e controle das lâmpadas em uma thread separada.
+
+    Args:
+        - mes_client (MES): Instância do cliente MES.
+    '''
     try:
         mes_client.handle_lamp()
     except Exception as e:
         print(f"Erro nas lâmpadas: {e}")
 
 def run_buttons(mes_client: MES) -> None:
+    '''
+    Função para rodar o monitoramento dos botões em uma thread separada.
+
+    Args:
+        - mes_client (MES): Instância do cliente MES.
+    '''
     try:
         mes_client.monitor_buttons()
     except Exception as e:
         print(f"Erro nos botões: {e}")
 
 def run_flow_first(mes_client: MES) -> None:
+    '''
+    Função para rodar o monitoramento do primeiro fluxo em uma thread separada.
+
+    Args:
+        - mes_client (MES): Instância do cliente MES.
+    '''
     try:
         mes_client.flow_first_plc()
     except Exception as e:
         print(f"Erro no flow_first_plc: {e}")
 
 def run_flow_second(mes_client: MES) -> None:
+    '''
+    Função para rodar o monitoramento e controle do segundo fluxo em uma thread separada.
+
+    Args:
+        - mes_client (MES): Instância do cliente MES.
+    '''
     try:
         mes_client.flow_second_plc()
     except Exception as e:
@@ -41,6 +65,24 @@ def run_flow_second(mes_client: MES) -> None:
 # ========================================
 
 def main() -> None:
+    '''
+    Entry point da aplicação de controle MPS da Festo.
+
+    Esta função inicializa as conexões Modbus TCP com os PLCs do sistema MPS, inicia o Digital Twin e o cliente MES,
+    e inicia as threads responsáveis pelo monitoramento e controle dos componentes do sistema.
+    Em seguida, inicia a API FastAPI para interação com o sistema.
+
+    Fluxo:
+        1. Configura o logger.
+        2. Estabelece conexões Modbus TCP com os PLCs do MPS.
+        3. Inicia o Digital Twin e vincula ao MES.
+        4. Inicia threads para monitoramento de lâmpadas, botões e fluxos.
+        5. Inicia a API FastAPI na porta 8000.
+    
+    Raises:
+        - KeyboardInterrupt: Permite o encerramento gracioso da aplicação via Ctrl+C.
+        - Exception: Captura e loga quaisquer erros inesperados durante a execução.
+    '''
     logger = loggerManager.LoggerManager()
     logger.set_name('MPS_Festo_Main')
 
