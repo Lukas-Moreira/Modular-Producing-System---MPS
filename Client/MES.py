@@ -119,6 +119,8 @@ class MES:
         self.state_machine = 'running'
         self.gemeo = gemeo
 
+        self.is_conveyor_available = True
+
         if not self.clients:
             self.logger.set_level("ERROR")
             self.logger.logger.error("MES inicializado sem clientes Modbus.")
@@ -992,20 +994,42 @@ class MES:
                 if self.state_machine != 'running':
                     continue
                 
-                self.gripper_down()
-                if self.state_machine != 'running':
-                    continue
-                time.sleep(0.1)
+
+                timeout = 60
+                start_time = time.time()
                 
-                self.gripper_open()
-                if self.state_machine != 'running':
-                    continue
-                time.sleep(0.1)
+                removido = False
+
+                while time.time() - start_time < timeout:
+                    if self.state_machine != 'running':
+                        print("Operação cancelada - sistema parado")
+                        return False
+                        
+                    result = self.clients['MPS_PRESSING'].read_input_registers(address = input_register_pressing_plc.MB_PART_AV, slave = 0)
+                    
+                    if not result.isError() and result.registers[0] == 0:
+                        print("Garra subiu")
+                        removido = True
+                        break              
+
+                    time.sleep(0.05)
                 
-                self.gripper_up()
-                if self.state_machine != 'running':
-                    continue
-                time.sleep(0.2)
+                if(removido == True):
+
+                    self.gripper_down()
+                    if self.state_machine != 'running':
+                        continue
+                    time.sleep(0.1)
+                    
+                    self.gripper_open()
+                    if self.state_machine != 'running':
+                        continue
+                    time.sleep(0.1)
+                    
+                    self.gripper_up()
+                    if self.state_machine != 'running':
+                        continue
+                    time.sleep(0.2)
 
             else:
                 self.preemption_lamp_control = True
@@ -1018,7 +1042,6 @@ class MES:
                 time.sleep(5)
 
                 self.preemption_lamp_control = False
-
 
 
 
@@ -1056,6 +1079,9 @@ class MES:
                 continue
                 
             if result.registers[0] == 1:
+                
+                self.is_conveyor_available = False
+
                 if self.state_machine != 'running':
                     continue
                     
@@ -1142,8 +1168,6 @@ class MES:
                             escrever_saida_digital_robot(HOST, 1, True)
                             escrever_saida_digital_robot(HOST, 2, True)
 
-                        time.sleep(60)
-
                         timeout = 30
                         start_time = time.time()
 
@@ -1158,6 +1182,10 @@ class MES:
                                 return False
                                 
                             result = ler_saida_digital_robot(HOST, 5)
+
+                            if(result == 1):
+                                print("continuando pois chegou ao fim!")
+                                break
                             
                             time.sleep(0.05)
 
@@ -1169,6 +1197,7 @@ class MES:
                         print(f"\n =========> Histórico de peças: {self.parts}")
                         self.parts.pop(0)
                         print(f"\n =========> Histórico de peças: {self.parts}")
+
 
                         break
                     

@@ -86,7 +86,7 @@ class DigitalTwin:
             self.db.set_words(0, input_hr)
             self.logger.logger.info("Words committed")
 
-    def set_parameter(self, parameter, value: int | bool):
+    def set_parameter(self, parameter, value):
         """
         Metodo da classe DigitalTwin que faz o set do valor de um parâmetro específico (DI ou INPUT_HR).
 
@@ -102,12 +102,12 @@ class DigitalTwin:
             if isinstance(parameter, DI):
                 di[parameter] = bool(value)
                 # self.commit_all()
-                print(f"DI {parameter.name} set to {value}")
+                # print(f"DI {parameter.name} set to {value}")
 
             elif isinstance(parameter, INPUT_HR):
                 input_hr[parameter] = int(value)
                 # self.commit_all()
-                print(f"INPUT_HR {parameter.name} set to {value}")
+                #print(f"INPUT_HR {parameter.name} set to {value}")
 
             else:
                 self.logger.logger.error(f"Parâmetro desconhecido: {parameter}")
