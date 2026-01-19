@@ -1,4 +1,7 @@
 class holding_register_handling_plc:
+    '''
+    Classe de endereçamento dos registradores de escrita (Holding Registers) do módulo Handling da MPS.
+    '''
     REMOTE_ENABLE =           0  # Habilita controle remoto
     MACHINE_RUNNING =         1  # Indica máquina rodando
     MACHINE_STOPPED =         2  # Indica máquina parada
@@ -24,6 +27,9 @@ class holding_register_handling_plc:
     MAGAZINE_EJECT =         19  # Recua o atuador do magazine (expulsa a peça)
 
 class input_register_handling_plc:
+    '''
+    Classe de endereçamento dos registradores de leitura (Input Registers) do módulo Handling da MPS.
+    '''
     sensor_peca_suporte =    0
     sensor_braco_deixa =        1
     sensor_braco_home = 2
@@ -40,7 +46,9 @@ class input_register_handling_plc:
 
 
 class holding_register_pressing_plc:
-    """Registradores de escrita (Holding Registers) do PLC de prensagem"""
+    '''
+    Registradores de escrita (Holding Registers) do PLC do módulo de prensagem da MPS. 
+    '''
     
     # Controles da esteira e componentes
     MB_LIGA_ESTEIRA = 0
@@ -58,7 +66,9 @@ class holding_register_pressing_plc:
     
 
 class input_register_pressing_plc:
-    """Registradores de leitura (Input Registers) do PLC de prensagem"""
+    '''
+    Registradores de leitura (Input Registers) do PLC do módulo de prensagem da MPS. 
+    '''
     
     # Controles principais
     MB_START = 0
