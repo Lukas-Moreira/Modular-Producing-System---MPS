@@ -1,4 +1,3 @@
-```markdown
 # UR5 Robot Programs - MPS Festo Integration
 
 Programas extraídos do robô colaborativo Universal Robots UR5 para integração com o sistema MPS Festo Didactic Plant.
@@ -210,4 +209,3 @@ Configure no pendant:
 - Calibração de TCP (Tool Center Point)
 - Verificação de precisão
 - Atualização de firmware
-```
