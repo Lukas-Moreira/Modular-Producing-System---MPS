@@ -8,6 +8,7 @@ from Server.DigitalTwin import DigitalTwin
 from Client.MES import MES
 from api import app
 
+from api import app, set_mes_instance
 # ========================================
 # ============= LÓGICA DO MES ============
 # ========================================

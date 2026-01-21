@@ -10,10 +10,13 @@ from Maps.Mapping import holding_register_handling_plc
 from Maps.Mapping import input_register_pressing_plc
 from Maps.Mapping import holding_register_pressing_plc
 
+import pyodbc
+
 # ==== robot
 import rtde_io
 import rtde_receive
 from Server.DigitalTwin import DigitalTwin, DI, INPUT_HR
+
 
 def escrever_saida_digital_robot(host, output_id, valor):
     """
@@ -119,13 +122,160 @@ class MES:
         self.state_machine = 'running'
         self.gemeo = gemeo
 
+        self.db_connection_string = (
+            'DRIVER={ODBC Driver 17 for SQL Server};'
+            'SERVER=localhost\\SQLEXPRESS;'
+            'DATABASE=db_mps;'
+            'Trusted_Connection=yes;'
+        )
+
         self.is_conveyor_available = True
 
         if not self.clients:
             self.logger.set_level("ERROR")
             self.logger.logger.error("MES inicializado sem clientes Modbus.")
             raise ValueError("MES inicializado sem clientes Modbus.")
+        
 
+    def get_db_connection(self):
+        """Cria e retorna uma conexão com o banco de dados."""
+        return pyodbc.connect(self.db_connection_string)
+    
+
+    def get_active_order(self):
+        """
+        Busca a ordem de produção mais antiga que ainda não foi finalizada.
+        
+        Returns:
+            dict: Dicionário com os dados da ordem ativa ou None se não houver ordem ativa.
+        """
+        try:
+            conn = self.get_db_connection()
+            cursor = conn.cursor()
+            
+            query = """
+            SELECT TOP 1
+                id,
+                order_name,
+                color_requested,
+                quantity_requested,
+                quantity_processed,
+                created_at
+            FROM production_orders
+            WHERE finished_at IS NULL
+            ORDER BY created_at ASC
+            """
+            
+            cursor.execute(query)
+            row = cursor.fetchone()
+            conn.close()
+            
+            if row:
+                return {
+                    'id': row.id,
+                    'order_name': row.order_name,
+                    'color_requested': row.color_requested,
+                    'quantity_requested': row.quantity_requested,
+                    'quantity_processed': row.quantity_processed,
+                    'created_at': row.created_at
+                }
+            
+            return None
+            
+        except Exception as e:
+            print(f"Erro ao buscar ordem ativa: {e}")
+
+            return None
+    
+
+    def register_piece(self, color: str, result: int, order_id: int = None):
+        """
+        Registra uma peça processada no banco de dados.
+        
+        Args:
+            color (str): Cor da peça ('preto', 'prata', 'rosa')
+            result (int): 1 para aprovada, 0 para rejeitada
+            order_id (int): ID da ordem de produção (opcional)
+        
+        Returns:
+            bool: True se registrado com sucesso, False caso contrário
+        """
+        try:
+            conn = self.get_db_connection()
+            cursor = conn.cursor()
+            
+            query = """
+            INSERT INTO pieces (piece_color, result, order_id, created_at)
+            VALUES (?, ?, ?, GETDATE())
+            """
+            
+            cursor.execute(query, color, result, order_id)
+            conn.commit()
+            conn.close()
+            
+            status = "APROVADA" if result == 1 else "REJEITADA"
+            print(f"Peça {color} {status} registrada no banco (Order ID: {order_id})")
+            return True
+            
+        except Exception as e:
+            print(f"Erro ao registrar peça: {e}")
+            return False
+        
+
+    def update_order_progress(self, order_id: int):
+        """
+        Incrementa o contador de peças processadas de uma ordem.
+        Se atingir a quantidade solicitada, marca a ordem como finalizada.
+        Sempre atualiza updated_at.
+        
+        Args:
+            order_id (int): ID da ordem a ser atualizada
+        
+        Returns:
+            bool: True se atualizado com sucesso, False caso contrário
+        """
+        try:
+            conn = self.get_db_connection()
+            cursor = conn.cursor()
+            
+            query_update = """
+            UPDATE production_orders
+            SET quantity_processed = quantity_processed + 1,
+                updated_at = GETDATE()
+            WHERE id = ?
+            """
+            
+            cursor.execute(query_update, order_id)
+            
+            query_check = """
+            SELECT quantity_requested, quantity_processed
+            FROM production_orders
+            WHERE id = ?
+            """
+            
+            cursor.execute(query_check, order_id)
+            row = cursor.fetchone()
+            
+            if row and row.quantity_processed >= row.quantity_requested:
+                query_finish = """
+                UPDATE production_orders
+                SET finished_at = GETDATE(),
+                    updated_at = GETDATE()
+                WHERE id = ?
+                """
+                cursor.execute(query_finish, order_id)
+                print(f"Ordem ID {order_id} FINALIZADA!")
+            
+            conn.commit()
+            conn.close()
+            
+            print(f"Ordem ID {order_id} atualizada: {row.quantity_processed}/{row.quantity_requested}")
+            return True
+            
+        except Exception as e:
+            print(f"Erro ao atualizar ordem: {e}")
+            return False
+    
     def get_plc(self, name: str) -> ModbusTcpClient:
         '''
         Método para obter o cliente Modbus de um PLC pelo nome.
@@ -194,6 +344,23 @@ class MES:
             print("2. Recuando magazine...")
             self.magazine_eject()
             time.sleep(0.5)
+
+            gripper_state = self.clients['MPS_HANDLING'].read_holding_registers(address = holding_register_handling_plc.GRIPPER_OPEN, slave = 0)
+            
+            if(gripper_state.registers[0] == 0):
+                print("movendo para o rejeito")
+                self.move_to_reject_reset()
+                
+                self.gripper_down()
+                
+                time.sleep(0.1)
+                self.gripper_open()
+
+                time.sleep(0.2)
+
+                self.gripper_up()
+                time.sleep(0.5)
+
             
             print("3. Movendo para HOME...")
             self.move_to_home_reset()
@@ -508,10 +675,10 @@ class MES:
         
         while time.time() - start_time < timeout:
             # Checa se parou
-            if self.state_machine != 'running':
-                self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_DOWN, value = 0, slave = 0)
-                print("Operação cancelada - sistema parado")
-                return False
+            # if self.state_machine != 'running':
+            #     self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_DOWN, value = 0, slave = 0)
+            #     print("Operação cancelada - sistema parado")
+            #     return False
                 
             result = self.clients['MPS_HANDLING'].read_input_registers(address = input_register_handling_plc.sensor_garra_avancada, count = 1, slave = 0)
             
@@ -584,9 +751,7 @@ class MES:
             - Notifica o Digital Twin sobre o status da operação.
         '''
 
-        self.gripper_up()
-        
-        print("Movendo para HOME...")
+        print("Movendo para HOME (reset)...")
         
         result = self.clients['MPS_HANDLING'].read_input_registers(address = input_register_handling_plc.sensor_braco_home, count = 1, slave = 0)
         
@@ -594,7 +759,10 @@ class MES:
             print("Braço já está na posição HOME")
             return True
         
+        self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_TO_STATION_DIR, value = 0, slave = 0)
+        self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_TO_MAGAZINE_ESQ, value = 0, slave = 0)
         self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_TO_STATION_DIR, value = 1, slave = 0)
+
         self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_X, 1000)
         print(f"Valor: {INPUT_HR.Crane_Fedder_Setpoint_X}")
         self.gemeo.commit_all()
@@ -606,10 +774,16 @@ class MES:
             result = self.clients['MPS_HANDLING'].read_input_registers(address = input_register_handling_plc.sensor_braco_home, count = 1, slave = 0)
             
             if not result.isError() and result.registers[0] == 1:
+                
                 self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_TO_STATION_DIR, value = 0, slave = 0)
+                self.clients['MPS_HANDLING'].write_register(address = holding_register_handling_plc.GRIPPER_TO_MAGAZINE_ESQ, value = 0, slave = 0)                
+                
                 self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_X, 1000)
+                
                 print(f"Valor: {INPUT_HR.Crane_Fedder_Setpoint_X}")
+                
                 self.gemeo.commit_all()
+                
                 print("Braço chegou na posição HOME")
                 return True
             
@@ -722,6 +896,61 @@ class MES:
                 print("Operação cancelada - sistema parado")
                 return False
                 
+            result = self.clients['MPS_HANDLING'].read_input_registers(address = input_register_handling_plc.sensor_braco_rejeito, count = 1, slave = 0)
+            
+            if not result.isError() and result.registers[0] == 1:
+                self.clients['MPS_HANDLING'].write_register(address = register_move, value = 0, slave = 0)
+                print("Braço chegou na posição REJEITO")
+                return True
+            
+            time.sleep(0.05)
+        
+        self.clients['MPS_HANDLING'].write_register(address = register_move, value = 0, slave = 0)
+        print("ERRO: Timeout ao mover para REJEITO")
+        return False
+    
+    def move_to_reject_reset(self):
+        '''
+        Método para mover o manipulador para a posição rejeito durante a operação normal.
+
+        Returns:
+            bool: True se o manipulador chegou na posição rejeito com sucesso, False em caso de erro.
+        
+        Observação:
+            - Verifica o estado da máquina antes de iniciar o movimento.
+            - Utiliza um timeout para evitar espera indefinida.
+            - Notifica o Digital Twin sobre o status da operação.
+        '''
+        
+        print("Movendo para REJEITO...")
+        
+        result_rejeito = self.clients['MPS_HANDLING'].read_input_registers(address = input_register_handling_plc.sensor_braco_rejeito, count = 1, slave = 0)
+        
+        if not result_rejeito.isError() and result_rejeito.registers[0] == 1:
+            print("Braço já está na posição REJEITO")
+            return True
+        
+        result_home = self.clients['MPS_HANDLING'].read_input_registers(address = input_register_handling_plc.sensor_braco_home, count = 1, slave = 0)
+        
+        if not result_home.isError() and result_home.registers[0] == 1:
+            register_move = holding_register_handling_plc.GRIPPER_TO_MAGAZINE_ESQ
+            direction = "esquerda"
+        else:
+            register_move = holding_register_handling_plc.GRIPPER_TO_STATION_DIR
+            direction = "direita"
+        
+        print(f"Movendo para {direction}...")
+        
+        self.clients['MPS_HANDLING'].write_register(address = register_move, value = 1, slave = 0)
+        self.gemeo.set_parameter(INPUT_HR.Crane_Fedder_Setpoint_X, 6200)
+
+        print(f"Valor: {INPUT_HR.Crane_Fedder_Setpoint_X}")
+        self.gemeo.commit_all()
+        
+        timeout = 10
+        start_time = time.time()
+        
+        while time.time() - start_time < timeout:
             result = self.clients['MPS_HANDLING'].read_input_registers(address = input_register_handling_plc.sensor_braco_rejeito, count = 1, slave = 0)
             
             if not result.isError() and result.registers[0] == 1:
@@ -921,6 +1150,7 @@ class MES:
             - Avanço e ejeção do magazine.
             - Operações da garra (abrir, fechar, mover para posições específicas).
             - Detecção e classificação de peças (preto, prata, rosa).
+            - SÓ PROCESSA SE HOUVER ORDEM ATIVA
         
         Returns:
             None
@@ -929,15 +1159,22 @@ class MES:
             - O fluxo é contínuo e depende do estado da máquina.
             - Utiliza registros Modbus para comunicação com o PLC.
             - Armazena a classificação das peças em uma lista 'parts'.
+            - BLOQUEIA processamento se não houver ordem ativa
         '''
 
         print('Iniciando flow_first_plc...')
         self.magazine_eject()
         
         while True:
-            # Checsa se está parado
             if self.state_machine != 'running':
                 time.sleep(0.1)
+                continue
+            
+            active_order = self.get_active_order()
+            
+            if not active_order:
+                print("Nenhuma ordem ativa - aguardando nova ordem...")
+                time.sleep(2)
                 continue
             
             self.magazine_advance()
@@ -948,7 +1185,7 @@ class MES:
             if self.state_machine != 'running':
                 continue
             
-            result = self.clients['MPS_HANDLING'].read_input_registers(address = input_register_handling_plc.sensor_peca_suporte, count = 1, slave = 0)
+            result = self.clients['MPS_HANDLING'].read_input_registers(address=input_register_handling_plc.sensor_peca_suporte, count=1, slave=0)
             
             if not result.isError() and result.registers[0] == 1:
                 if self.state_machine != 'running':
@@ -978,7 +1215,7 @@ class MES:
                     continue
                 
                 time.sleep(0.2)
-                result_sensor_garra = self.clients['MPS_HANDLING'].read_input_registers(address = input_register_handling_plc.sensor_peca_garra, count = 1, slave = 0)
+                result_sensor_garra = self.clients['MPS_HANDLING'].read_input_registers(address=input_register_handling_plc.sensor_peca_garra, count=1, slave=0)
                 
                 if not result_sensor_garra.isError():
                     if result_sensor_garra.registers[0] == 0:
@@ -994,28 +1231,30 @@ class MES:
                 if self.state_machine != 'running':
                     continue
                 
+                removido = True
 
-                timeout = 60
-                start_time = time.time()
+                print("Aguardando esteira ficar disponível...")
+                timeout_esteira = 120 
+                start_wait = time.time()
                 
-                removido = False
-
-                while time.time() - start_time < timeout:
+                while not self.is_conveyor_available:
                     if self.state_machine != 'running':
                         print("Operação cancelada - sistema parado")
                         return False
-                        
-                    result = self.clients['MPS_PRESSING'].read_input_registers(address = input_register_pressing_plc.MB_PART_AV, slave = 0)
                     
-                    if not result.isError() and result.registers[0] == 0:
-                        print("Garra subiu")
-                        removido = True
-                        break              
-
-                    time.sleep(0.05)
+                    if time.time() - start_wait > timeout_esteira:
+                        print("ERRO: Timeout ao aguardar liberação da esteira!")
+                        self.state_machine = "error"
+                        removido = False
+                        return False
+                    
+                    time.sleep(0.1)
                 
-                if(removido == True):
-
+                print("Esteira disponível! Depositando peça...")
+                
+                self.is_conveyor_available = False
+                
+                if removido == True:
                     self.gripper_down()
                     if self.state_machine != 'running':
                         continue
@@ -1044,7 +1283,6 @@ class MES:
                 self.preemption_lamp_control = False
 
 
-
     # =============================================
     #  ================ SECOND PLC ================ 
     # =============================================
@@ -1058,6 +1296,9 @@ class MES:
             - Detecção de peças na esteira.
             - Identificação da cor das peças (prata, rosa).
             - Controle da esteira e sinalização via Digital Twin.
+            - Liberação da flag is_conveyor_available quando peça sai do sensor final
+            - Integração com ordens de produção (aprovação/rejeição baseada em cor)
+            - SÓ PROCESSA SE HOUVER ORDEM ATIVA
         
         Returns:
             None
@@ -1066,22 +1307,36 @@ class MES:
             - O fluxo é contínuo e depende do estado da máquina.
             - Utiliza registros Modbus para comunicação com o PLC.
             - Utiliza a lista 'parts' para armazenar a classificação das peças
+            - Registra peças aprovadas/rejeitadas no banco de dados
+            - BLOQUEIA processamento se não houver ordem ativa
         '''
         while True:
             if self.state_machine != 'running':
                 time.sleep(0.1)
                 continue
             
+            active_order = self.get_active_order()
+            
+            if not active_order:
+                print("Nenhuma ordem ativa - aguardando nova ordem...")
+                time.sleep(2)
+                continue
+            
             try:
-                result = self.clients['MPS_PRESSING'].read_input_registers(address = input_register_pressing_plc.MB_PART_AV, slave = 0)
-            except ValueError as e:
-                print('meu erro: ', e)
+                result = self.clients['MPS_PRESSING'].read_input_registers(address=input_register_pressing_plc.MB_PART_AV, count=1, slave=0)
+            except Exception as e:
+                print(f'Erro ao ler sensor de entrada: {e}')
+                time.sleep(0.1)
+                continue
+            
+            if result.isError():
+                print("Erro ao ler MB_PART_AV")
+                time.sleep(0.1)
                 continue
                 
             if result.registers[0] == 1:
-                
                 self.is_conveyor_available = False
-
+                
                 if self.state_machine != 'running':
                     continue
                     
@@ -1091,44 +1346,41 @@ class MES:
                 if self.state_machine != 'running':
                     continue
                     
-                self.clients['MPS_PRESSING'].write_register(address = holding_register_pressing_plc.MB_LIGA_ESTEIRA, value = 1, slave = 0)
+                self.clients['MPS_PRESSING'].write_register(address=holding_register_pressing_plc.MB_LIGA_ESTEIRA, value=1, slave=0)
                 self.gemeo.set_parameter(DI.Conveyor_Job, True)
                 self.gemeo.commit_all()
                 
                 while True:
                     if self.state_machine != 'running':
-                        self.clients['MPS_PRESSING'].write_register(address = holding_register_pressing_plc.MB_LIGA_ESTEIRA, value = 0, slave = 0)
+                        self.clients['MPS_PRESSING'].write_register(address=holding_register_pressing_plc.MB_LIGA_ESTEIRA, value=0, slave=0)
                         self.gemeo.set_parameter(DI.Conveyor_Job, False)
                         self.gemeo.commit_all()
                         break
                     
-                    result_barreira = self.clients['MPS_PRESSING'].read_input_registers(address = input_register_pressing_plc.MB_BARREIRA_IND, count = 1, slave = 0)
+                    result_barreira = self.clients['MPS_PRESSING'].read_input_registers(address=input_register_pressing_plc.MB_BARREIRA_IND, count=1, slave=0)
                     
                     if not result_barreira.isError() and result_barreira.registers[0] == 1:
                         print("Peça chegou na barreira indutiva - identificando cor...")
                         
-                        self.clients['MPS_PRESSING'].write_register(address = holding_register_pressing_plc.MB_LIGA_ESTEIRA, value = 0, slave = 0)
+                        self.clients['MPS_PRESSING'].write_register(address=holding_register_pressing_plc.MB_LIGA_ESTEIRA, value=0, slave=0)
                         self.gemeo.set_parameter(DI.Conveyor_Job, False)
                         self.gemeo.commit_all()
                         time.sleep(0.3)
                         
-                        result_sensor = self.clients['MPS_PRESSING'].read_input_registers(address = input_register_pressing_plc.MB_SENSOR_IND, count = 1, slave = 0)
+                        result_sensor = self.clients['MPS_PRESSING'].read_input_registers(address=input_register_pressing_plc.MB_SENSOR_IND, count=1, slave=0)
                         
                         if not result_sensor.isError():
                             if result_sensor.registers[0] == 1:
-
                                 print("Peça PRATA confirmada!")
-
                                 if self.parts and self.parts[-1] == "indefinido":
                                     self.parts[-1] = "prata"
-
                             else:
                                 print("Peça ROSA confirmada!")
                                 if self.parts and self.parts[-1] == "indefinido":
                                     self.parts[-1] = "rosa"
                         
                         time.sleep(0.5)
-                        self.clients['MPS_PRESSING'].write_register(address = holding_register_pressing_plc.MB_LIGA_ESTEIRA, value = 1, slave = 0)
+                        self.clients['MPS_PRESSING'].write_register(address=holding_register_pressing_plc.MB_LIGA_ESTEIRA, value=1, slave=0)
                         self.gemeo.set_parameter(DI.Conveyor_Job, True)
                         self.gemeo.commit_all()
                         break
@@ -1137,68 +1389,137 @@ class MES:
                 
                 while True:
                     if self.state_machine != 'running':
-                        self.clients['MPS_PRESSING'].write_register(address = holding_register_pressing_plc.MB_LIGA_ESTEIRA, value = 0, slave = 0)
+                        self.clients['MPS_PRESSING'].write_register(address=holding_register_pressing_plc.MB_LIGA_ESTEIRA, value=0, slave=0)
                         self.gemeo.set_parameter(DI.Conveyor_Job, False)
                         self.gemeo.commit_all()
                         break
                         
-                    result_fim = self.clients['MPS_PRESSING'].read_input_registers(address = input_register_pressing_plc.MB_PC_FIM, count = 1, slave = 0)
+                    result_fim = self.clients['MPS_PRESSING'].read_input_registers(address=input_register_pressing_plc.MB_PC_FIM, count=1, slave=0)
                     
                     if not result_fim.isError() and result_fim.registers[0] == 1:
                         print("Peça chegou no final da esteira")
-                        self.clients['MPS_PRESSING'].write_register(address = holding_register_pressing_plc.MB_LIGA_ESTEIRA, value = 0, slave = 0)
+                        
+                        self.clients['MPS_PRESSING'].write_register(address=holding_register_pressing_plc.MB_LIGA_ESTEIRA, value=0, slave=0)
                         self.gemeo.set_parameter(DI.Conveyor_Job, False)
                         self.gemeo.commit_all()
                         
-                        if(self.parts[0] == 'prata'):
-                            
+                        if not self.parts:
+                            print("AVISO: Lista de peças vazia! Pulando comando do robô.")
+                            self.is_conveyor_available = True
+                            break
+                        
+                        cor_atual: str
+                        cor_atual = self.parts[0]
+                        print(f"\n========================================")
+                        print(f"Processando peça: {cor_atual.upper()}")
+                        print(f"Histórico: {self.parts}")
+                        
+                        active_order = self.get_active_order()
+                        
+                        if not active_order:
+                            print("ERRO: Ordem ativa desapareceu durante processamento!")
+                            print("Liberando esteira sem processar")
+                            self.is_conveyor_available = True
+                            self.parts.pop(0)
+                            print(f"========================================\n")
+                            break
+                        
+                        print(f"Ordem ativa: {active_order['order_name']}")
+                        print(f"Cor solicitada: {active_order['color_requested']}")
+                        print(f"Progresso: {active_order['quantity_processed']}/{active_order['quantity_requested']}")
+                        
+                        if cor_atual == active_order['color_requested']:
+                            print(f"Peça APROVADA - Cor corresponde à ordem!")
+                            piece_approved = True
+                            self.register_piece(cor_atual, result=1, order_id=active_order['id'])
+                            self.update_order_progress(active_order['id'])
+                        else:
+                            print(f"Peça REJEITADA - Cor não corresponde (esperado: {active_order['color_requested']}, recebido: {cor_atual})")
+                            piece_approved = False
+                            self.register_piece(cor_atual, result=0, order_id=active_order['id'])
+                        
+                        print(f"========================================\n")
+                        
+                        if cor_atual == 'prata':
                             escrever_saida_digital_robot(HOST, 0, True)
                             escrever_saida_digital_robot(HOST, 1, False)
                             escrever_saida_digital_robot(HOST, 2, True)
 
-                        elif(self.parts[0] == 'rosa'):
-                            
+                        elif cor_atual == 'rosa':
                             escrever_saida_digital_robot(HOST, 0, True)
                             escrever_saida_digital_robot(HOST, 1, True)
                             escrever_saida_digital_robot(HOST, 2, False)
 
-                        elif(self.parts[0] == 'preto'):
-                            
+                        elif cor_atual == 'preto':
                             escrever_saida_digital_robot(HOST, 0, True)
                             escrever_saida_digital_robot(HOST, 1, True)
                             escrever_saida_digital_robot(HOST, 2, True)
-
-                        timeout = 30
+                        
+                        timeout = 60
                         start_time = time.time()
-
+                        robot_finished = False
+                        conveyor_freed = False
+                        
                         while time.time() - start_time < timeout:
-
                             if self.state_machine != 'running':
-                                print("Operação cancelada - parando robo!")
-
+                                print("Operação cancelada - parando robô!")
                                 escrever_saida_digital_robot(HOST, 0, False)
                                 escrever_saida_digital_robot(HOST, 1, False)
                                 escrever_saida_digital_robot(HOST, 2, False)
                                 return False
+                            
+                            try:
+                                result_sensor_fim = self.clients['MPS_PRESSING'].read_input_registers(address=input_register_pressing_plc.MB_PC_FIM, count=1, slave=0)
                                 
-                            result = ler_saida_digital_robot(HOST, 5)
-
-                            if(result == 1):
-                                print("continuando pois chegou ao fim!")
-                                break
+                                if not result_sensor_fim.isError() and result_sensor_fim.registers[0] == 0:
+                                    if not conveyor_freed:
+                                        print("Sensor final LIBERADO - Peça removida da esteira!")
+                                        self.is_conveyor_available = True
+                                        conveyor_freed = True
+                                        self.parts.pop(0)
+                                        print(f"Histórico atualizado: {self.parts}\n")
+                            except Exception as e:
+                                print(f"Erro ao ler sensor final: {e}")
+                            
+                            try:
+                                result_robot = ler_saida_digital_robot(HOST, 5)
+                                if result_robot == 1:
+                                    print("Robô sinalizou conclusão (DO5 = HIGH)")
+                                    robot_finished = True
+                                    break
+                            except Exception as e:
+                                print(f"Erro ao ler saída do robô: {e}")
                             
                             time.sleep(0.05)
-
+                        
+                        if not robot_finished:
+                            print("TIMEOUT: Robô não sinalizou conclusão em 60s")
+                        
+                        if not conveyor_freed:
+                            print("Forçando liberação da esteira (timeout/erro)")
+                            
+                            while result_sensor_fim.registers[0] == 1:
+                                try:
+                                    result_sensor_fim = self.clients['MPS_PRESSING'].read_input_registers(address=input_register_pressing_plc.MB_PC_FIM, count=1, slave=0)
+                                    
+                                    if not result_sensor_fim.isError() and result_sensor_fim.registers[0] == 0:
+                                        print("Esteira liberada manualmente")
+                                        self.is_conveyor_available = True
+                                        self.parts.pop(0)
+                                        print(f"Histórico atualizado: {self.parts}\n")
+                                        break
+                                except Exception as e:
+                                    print(f"Erro na liberação manual: {e}")
+                                
+                                time.sleep(0.1)
+                        
                         escrever_saida_digital_robot(HOST, 0, False)
                         escrever_saida_digital_robot(HOST, 1, False)
                         escrever_saida_digital_robot(HOST, 2, False)
-
-
-                        print(f"\n =========> Histórico de peças: {self.parts}")
-                        self.parts.pop(0)
-                        print(f"\n =========> Histórico de peças: {self.parts}")
-
-
+                        
+                        print(f"Status: Esteira livre={self.is_conveyor_available} | Peças restantes={len(self.parts)}\n")
                         break
                     
                     time.sleep(0.05)
+            
+            time.sleep(0.1)
