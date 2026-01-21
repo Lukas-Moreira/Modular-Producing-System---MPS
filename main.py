@@ -124,6 +124,8 @@ def main() -> None:
         
         mes_client: MES = MES(modbus_clients, gemeo=gemeo)
         mes_client.state_machine = 'cycle'
+
+        set_mes_instance(mes_client)
         
         print("\nIniciando threads do MES...")
         
