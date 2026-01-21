@@ -1,9 +1,31 @@
-# Dependências detectadas no projeto
-fastapi
-uvicorn
-pymodbus
-pyModbusTCP
-pyodbc
-ur-rtde
+```txt
+# Core Framework
+fastapi==0.104.1
+uvicorn==0.24.0
 
-# Observação: Dependências auxiliares (pydantic, starlette, etc.) serão instaladas automaticamente pelo pip
+# Modbus Communication
+pymodbus==3.5.4
+pyModbusTCP==0.2.0
+
+# Database
+pyodbc==5.0.1
+
+# UR Robot Communication
+ur-rtde==1.5.5
+
+# Authentication & Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+
+# Data Validation
+pydantic==2.5.0
+pydantic[email]==2.5.0
+
+# Async Support
+asyncio==3.4.3
+aiofiles==23.2.1
+
+# Logging & Monitoring
+python-dotenv==1.0.0
+```
