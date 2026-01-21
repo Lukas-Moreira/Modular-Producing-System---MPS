@@ -1,0 +1,73 @@
+ Programa
+   Programa do Robô
+     Loop
+       Aguardar: 1.0
+       Se digital_out[0] ≟  True  and (digital_out[1] ≟ False  and digital_out[2] ≟ True)
+         Chamar Subprograma_1
+         Chamar Subprograma_4
+         Aguardar: 2.0
+       Se digital_out[0] ≟  True  and (digital_out[1] ≟ True  and digital_out[2] ≟  False )
+         Chamar Subprograma_2
+         Chamar Subprograma_4
+         Aguardar: 2.0
+       Se digital_out[0] ≟  True  and (digital_out[1] ≟ True  and digital_out[2] ≟ True )
+         Chamar Subprograma_3
+         Chamar Subprograma_4
+         Aguardar: 2.0
+   Subprograma_1
+     Movimento J
+       home
+     Movimento J
+       Pick_Standby
+       Get_Piece
+       Pick_Standby
+     Movimento J
+       home
+     Movimento J
+       Place_Sub1
+       desce_1
+       Place_Sub1
+     Movimento J
+       home
+     Definir DO[5]=Ligar
+   Subprograma_2
+     Movimento J
+       home
+     Movimento J
+       Pick_Standby
+       Get_Piece
+       Pick_Standby
+     Movimento J
+       home
+     Movimento J
+       Place_Sub2
+       desce2
+       Place_Sub2
+     Movimento J
+       home
+       Definir DO[5]=Ligar
+   Subprograma_3
+     Movimento J
+       home
+     Movimento J
+       Pick_Standby
+       Get_Piece
+       Pick_Standby
+     Movimento J
+       home
+     Movimento J
+       Place_Sub3
+       desce_3
+       Place_Sub3
+     Movimento J
+       home
+     Definir DO[5]=Ligar
+   Subprograma_4
+     Aguardar: 1.0
+     Definir DO[5]=Desligar
+     Aguardar: 1.0
+     Definir DO[0]=Desligar
+     Aguardar: 1.0
+     Definir DO[1]=Desligar
+     Aguardar: 1.0
+     Definir DO[2]=Desligar
