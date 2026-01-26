@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import LoginModal from '../components/LoginModal';
 import './Orders.css';
 
+const API_URL = "http://192.168.0.77:8000/";
+
 interface Order {
   id: number;
   order_name: string;
@@ -31,7 +33,6 @@ const Orders: React.FC = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   useEffect(() => {
-    // ✅ Verifica se tem token E se está autenticado
     const auth = localStorage.getItem('isAuthenticated');
     const token = localStorage.getItem('access_token');
     setIsAuthenticated(auth === 'true' && token !== null);
@@ -43,7 +44,7 @@ const Orders: React.FC = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get<{ orders: Order[] }>('http://localhost:8000/api/recent-orders');
+      const response = await axios.get<{ orders: Order[] }>(`${API_URL}api/recent-orders`);
       setOrders(response.data.orders);
     } catch (error) {
       console.error('Erro ao buscar ordens:', error);
@@ -57,7 +58,6 @@ const Orders: React.FC = () => {
   };
 
   const handleLogout = () => {
-    // ✅ Remove também o token
     localStorage.removeItem('access_token');
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('user');
@@ -84,10 +84,9 @@ const Orders: React.FC = () => {
     }
 
     try {
-      // ✅ AQUI É A MUDANÇA PRINCIPAL - Envia o token no header
       const token = localStorage.getItem('access_token');
       
-      await axios.post('http://localhost:8000/api/create-order', formData, {
+      await axios.post(`${API_URL}api/create-order`, formData, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -103,7 +102,6 @@ const Orders: React.FC = () => {
 
       fetchOrders();
     } catch (error: any) {
-      // ✅ Trata erro 401 (token inválido/expirado)
       if (error.response?.status === 401) {
         localStorage.removeItem('access_token');
         localStorage.removeItem('isAuthenticated');

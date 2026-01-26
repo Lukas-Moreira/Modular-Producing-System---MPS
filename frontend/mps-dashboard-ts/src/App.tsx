@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
 import Orders from './pages/Orders';
+import Monitoramento from './pages/Monitoramento';
 import './App.css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/orders" element={<Orders />} />
+              <Route path="/monitoramento" element={<Monitoramento />} />
             </Routes>
           </div>
         </div>

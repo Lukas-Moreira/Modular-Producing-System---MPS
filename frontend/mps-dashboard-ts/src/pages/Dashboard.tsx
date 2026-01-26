@@ -3,6 +3,8 @@ import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './Dashboard.css';
 
+const API_URL = "http://192.168.0.77:8000/";
+
 interface ActiveOrder {
   order_name: string;
   color_requested: string;
@@ -74,10 +76,10 @@ const Dashboard: React.FC = () => {
     const fetchData = async () => {
       try {
         const [statusRes, statsRes, hourlyRes, ordersRes] = await Promise.all([
-          axios.get<MachineStatus>('http://localhost:8000/api/machine-status'),
-          axios.get<ProductionStats>('http://localhost:8000/api/production-stats'),
-          axios.get<{ hourly_data: HourlyDataPoint[] }>('http://localhost:8000/api/hourly-production'),
-          axios.get<{ orders: Order[] }>('http://localhost:8000/api/recent-orders')
+          axios.get<MachineStatus>(`${API_URL}api/machine-status`),
+          axios.get<ProductionStats>(`${API_URL}api/production-stats`),
+          axios.get<{ hourly_data: HourlyDataPoint[] }>(`${API_URL}api/hourly-production`),
+          axios.get<{ orders: Order[] }>(`${API_URL}api/recent-orders`)
         ]);
 
         setMachineStatus(statusRes.data);
@@ -112,7 +114,7 @@ const Dashboard: React.FC = () => {
         params.date_filter = dateFilter;
       }
 
-      const response = await axios.get<PiecesResponse>('http://localhost:8000/api/recent-pieces', { params });
+      const response = await axios.get<PiecesResponse>(`${API_URL}api/recent-pieces`, { params });
       setRecentPieces(response.data.pieces);
       setPiecesTotalPages(response.data.total_pages);
     } catch (error) {

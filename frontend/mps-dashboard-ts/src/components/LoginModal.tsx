@@ -7,6 +7,8 @@ interface LoginModalProps {
   onSuccess: () => void;
 }
 
+const API_URL = "http://192.168.0.77:8000/";
+
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -19,7 +21,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8000/api/login', {
+      const response = await fetch(`${API_URL}api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,7 +32,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
       if (response.ok) {
         const data = await response.json();
         
-        // ✅ SALVANDO O TOKEN
         localStorage.setItem('access_token', data.access_token);
         localStorage.setItem('isAuthenticated', 'true');
         localStorage.setItem('user', JSON.stringify(data.user));

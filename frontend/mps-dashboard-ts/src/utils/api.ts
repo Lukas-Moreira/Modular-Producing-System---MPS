@@ -1,5 +1,4 @@
-
-const API_URL = 'http://localhost:8000';
+const API_URL = "http://192.168.0.77:8000/";
 
 export async function fetchWithAuth(endpoint: string, options: RequestInit = {}) {
   const token = localStorage.getItem('access_token');
@@ -25,11 +24,9 @@ export async function fetchWithAuth(endpoint: string, options: RequestInit = {})
   return response;
 }
 
-
 export function isAuthenticated(): boolean {
   return localStorage.getItem('access_token') !== null;
 }
-
 
 export function logout() {
   localStorage.removeItem('access_token');
