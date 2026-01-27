@@ -10,7 +10,7 @@ pyModbusTCP==0.2.0
 pyodbc==5.0.1
 
 # UR Robot Communication
-ur-rtde==1.5.5
+ur-rtde
 
 # Authentication & Security
 python-jose[cryptography]==3.3.0

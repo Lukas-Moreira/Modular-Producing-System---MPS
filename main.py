@@ -143,10 +143,10 @@ def main() -> None:
         time.sleep(1)
         print("Todas as threads iniciadas!")
         
-        print("\nIniciando API na porta 8000...")
-        print("Acesse: http://localhost:8000/docs\n")
+        print("\nIniciando API na porta 3000...")
+        print("Acesse: http://localhost:3000/docs\n")
 
-        uvicorn.run(app, host = "0.0.0.0", port = 8000)
+        uvicorn.run(app, host = "0.0.0.0", port = 3000)
     
     except KeyboardInterrupt:
         print("\nEncerrando aplicação...")
