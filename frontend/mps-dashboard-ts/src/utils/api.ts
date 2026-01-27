@@ -1,4 +1,4 @@
-const API_URL = "http://192.168.0.77:8000/";
+const API_URL = "http://0.0.0.0:8000/";
 
 export async function fetchWithAuth(endpoint: string, options: RequestInit = {}) {
   const token = localStorage.getItem('access_token');

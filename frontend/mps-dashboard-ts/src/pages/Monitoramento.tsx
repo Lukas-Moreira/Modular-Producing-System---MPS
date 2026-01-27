@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Monitoramento.css";
 
-const API_VIDEO_FEED_URL = "http://192.168.0.77:4545/";
+const API_VIDEO_FEED_URL = "http://192.168.0.3:5050/";
 
 const Monitoramento = () => {
   const [isOnline, setIsOnline] = useState(false);

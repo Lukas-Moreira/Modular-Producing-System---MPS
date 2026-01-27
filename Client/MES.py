@@ -124,9 +124,10 @@ class MES:
 
         self.db_connection_string = (
             'DRIVER={ODBC Driver 17 for SQL Server};'
-            'SERVER=localhost\\SQLEXPRESS;'
+            'SERVER=192.168.0.77,1433;'
             'DATABASE=db_mps;'
-            'Trusted_Connection=yes;'
+            'UID=mps_user;'
+            'PWD=123456789;'
         )
 
         self.is_conveyor_available = True

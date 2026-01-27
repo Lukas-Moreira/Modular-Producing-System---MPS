@@ -63,7 +63,7 @@ class DigitalTwin:
         self.logger.set_name("DigitalTwin_MPS_Festo")
 
         try:
-            self.server = ModbusServer(host="127.0.0.1", port=502, no_block=True)
+            self.server = ModbusServer(host="0.0.0.0", port=502, no_block=True)
             self.server.start()
             self.db = self.server.data_bank
             self.DI = DI
