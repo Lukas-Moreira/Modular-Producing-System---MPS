@@ -7,6 +7,14 @@ from pydantic import BaseModel
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 
+import os
+
+# Variáveis de ambiente
+DB_HOST = os.getenv('DB_HOST', 'database_service')
+DB_NAME = os.getenv('DB_NAME', 'db_mps')
+DB_USER = os.getenv('DB_USER', 'sa')
+DB_PASSWORD = os.getenv('DB_PASSWORD', 'MpsFesto@2026!')
+
 # ========================================
 # CONFIGURAÇÕES DE SEGURANÇA
 # ========================================
@@ -84,11 +92,12 @@ app.add_middleware(
 
 def get_db_connection():
     conn = pyodbc.connect(
-        'DRIVER={ODBC Driver 17 for SQL Server};'
-        'SERVER=192.168.0.77,1433;'
-        'DATABASE=db_mps;'
-        'UID=mps_user;'
-        'PWD=123456789;'
+        f'DRIVER={{ODBC Driver 18 for SQL Server}};'
+        f'SERVER={DB_HOST};'
+        f'DATABASE={DB_NAME};'
+        f'UID={DB_USER};'
+        f'PWD={DB_PASSWORD};'
+        f'TrustServerCertificate=yes;'  # Adicione esta linha
     )
     return conn
 
