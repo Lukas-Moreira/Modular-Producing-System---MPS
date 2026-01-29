@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import LoginModal from '../components/LoginModal';
 import './Orders.css';
 
-const API_URL = "http://192.168.0.77:8000/";
+const API_URL = "http://0.0.0.0:3000/";
 
 interface Order {
   id: number;
