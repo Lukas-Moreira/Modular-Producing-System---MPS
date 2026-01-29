@@ -4,7 +4,8 @@ import { toast } from 'react-toastify';
 import LoginModal from '../components/LoginModal';
 import './Orders.css';
 
-const API_URL = "http://localhost:3000/";
+const RAW_API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000/";
+const API_URL = RAW_API_URL.endsWith('/') ? RAW_API_URL : RAW_API_URL + '/';
 
 interface Order {
   id: number;
@@ -44,7 +45,8 @@ const Orders: React.FC = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get<{ orders: Order[] }>(`${API_URL}api/recent-orders`);
+      const path = 'api/recent-orders'.startsWith('/') ? 'api/recent-orders'.slice(1) : 'api/recent-orders';
+      const response = await axios.get<{ orders: Order[] }>(`${API_URL}${path}`);
       setOrders(response.data.orders);
     } catch (error) {
       console.error('Erro ao buscar ordens:', error);
@@ -86,7 +88,8 @@ const Orders: React.FC = () => {
     try {
       const token = localStorage.getItem('access_token');
       
-      await axios.post(`${API_URL}api/create-order`, formData, {
+      const createPath = 'api/create-order'.startsWith('/') ? 'api/create-order'.slice(1) : 'api/create-order';
+      await axios.post(`${API_URL}${createPath}`, formData, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

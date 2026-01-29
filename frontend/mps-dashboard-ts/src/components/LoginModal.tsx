@@ -6,8 +6,8 @@ interface LoginModalProps {
   onClose: () => void;
   onSuccess: () => void;
 }
-
-const API_URL = "http://localhost:3000/";
+const RAW_API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000/";
+const API_URL = RAW_API_URL.endsWith('/') ? RAW_API_URL : RAW_API_URL + '/';
 
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) => {
   const [username, setUsername] = useState('');
@@ -21,7 +21,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
     setLoading(true);
 
     try {
-      const response = await fetch(`${API_URL}api/login`, {
+      const path = 'api/login'.startsWith('/') ? 'api/login'.slice(1) : 'api/login';
+      const response = await fetch(`${API_URL}${path}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

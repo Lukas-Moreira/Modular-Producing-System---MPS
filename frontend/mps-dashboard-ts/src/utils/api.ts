@@ -1,15 +1,21 @@
-const API_URL = "http://localhost:3000/";
+const RAW_API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000/";
+const API_URL = RAW_API_URL.endsWith('/') ? RAW_API_URL : RAW_API_URL + '/';
+
+function buildUrl(endpoint: string) {
+  const path = endpoint.startsWith('/') ? endpoint.slice(1) : endpoint;
+  return `${API_URL}${path}`;
+}
 
 export async function fetchWithAuth(endpoint: string, options: RequestInit = {}) {
   const token = localStorage.getItem('access_token');
-  
+
   const headers = {
     'Content-Type': 'application/json',
     ...(token && { 'Authorization': `Bearer ${token}` }),
     ...options.headers,
-  };
+  } as Record<string, string>;
 
-  const response = await fetch(`${API_URL}${endpoint}`, {
+  const response = await fetch(buildUrl(endpoint), {
     ...options,
     headers,
   });
