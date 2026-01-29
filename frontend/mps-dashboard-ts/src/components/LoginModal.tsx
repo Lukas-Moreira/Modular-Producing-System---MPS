@@ -7,7 +7,7 @@ interface LoginModalProps {
   onSuccess: () => void;
 }
 
-const API_URL = "http://0.0.0.0:3000/";
+const API_URL = "http://localhost:3000/";
 
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) => {
   const [username, setUsername] = useState('');
